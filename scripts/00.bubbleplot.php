@@ -1,18 +1,18 @@
 <?php
-require_once(__DIR__ . '/04.taxa_funcs.php');
-require_once(__DIR__ . '/06.total_counts.php');
-require_once(__DIR__ . '/05.environmental.php');
-//require_once(__DIR__ . '/Chart.php');
-require_once(__DIR__ . '/Chart_PR.php'); //by_columns
+require_once('../data/php/00.total_counts.php');
+require_once('../src/01.taxa_funcs.php');
+require_once('../src/02.environmental.php');
+require_once('../src/03.leyend.php');
+require_once('../src/04.Chart_PR.php'); //by_columns
 //require_once(__DIR__ . '/Chart_by_rows.php'); //by_rows
 //require_once(__DIR__ . '/Chart_mt_by_rows.php'); //by_rows
-require_once(__DIR__ . '/07.leyend.php');
+
 
 //$ec_colors = ["4.1.1.39" => 'green', "2.3.3.8" => '#f48f42', "6.2.1.18" => '#f48f42', "2.3.1.169" => '#f4415c', "1.2.1.75" => '#414cf4', "6.2.1.36" => '#8342f4', "6.2.1.40" => '#8342f4'];
 $sites_counts = [];
 $sites_rel_ab_custom = [];
 
-foreach (glob("Mt_*.test.test.final_3.taxa") as $file){
+foreach (glob("../data/tax_grouped/Mt_*.test.test.final_3.taxa") as $file){
   $site = basename($file, ".test.test.final_3.taxa");
   $taxa_counts = get_taxa_counts_from_file_by_ec_taxa_name($file, $ecs, 5);
   $sites_counts[$site] = $taxa_counts;

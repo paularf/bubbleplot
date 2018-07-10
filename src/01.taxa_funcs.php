@@ -1,22 +1,18 @@
 <?php
 //Esta function devuelve un arreglo con los taxa_counts por tax_name y ec
-require_once(__DIR__ . '/06.total_counts.php'); //para buscar en el mismo directorio donde está este archivo
+
 $ecs = ["4.1.1.39", "2.3.3.8", "6.2.1.18", "2.3.1.169", "6.2.1.40", "1.3.1.84", "5.4.1.3", "4.2.1.153", "4.1.3.46", "1.2.1.75", "6.2.1.36", "4.2.1.120"];
-$ecs_path = ["6.2.1.40" => "DC/4HB_3HP/4HB", "1.3.1.84" => "3HP/4HB", "5.4.1.3" => "3HP", "4.2.1.153" => "3HP", "4.1.3.25" => "3HP_Deg", "4.1.3.46" => "3HP", "1.2.1.75" => "3HP/4HB_3HP(?)", "6.2.1.36" => "3HP/4HB_3HP(?)", "4.2.1.120" =>"4HP/4HB_DC/4HB", "1.2.7.1" => "DC_prom", "2.7.9.2" => "DC_prom", "4.1.1.31" => "DC_prom"];
 
 function get_taxa_counts_from_file_by_ec_taxa_name($file, $ecs, $limit = 2) {
   $f = fopen($file, "r");
-
   $taxa_counts = [];
-
   while ($line = trim(fgets($f))){
     $columns = explode("\t", $line);
     $ec_number = $columns[0];
     $taxa_name = $columns[1];
     $taxa_count= $columns[2];
     if ($taxa_count <= $limit) continue;
-
-    if ( in_array($ec_number, $ecs) )
+    if (in_array($ec_number, $ecs))
       $taxa_counts[$ec_number][$taxa_name] = $taxa_count;
   }
   fclose($f);
