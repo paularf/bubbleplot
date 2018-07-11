@@ -3,21 +3,19 @@ require_once('../data/php/00.total_counts.php');
 require_once('../src/01.taxa_funcs.php');
 require_once('../src/02.environmental.php');
 require_once('../src/03.leyend.php');
-require_once('../src/04.Chart_PR.php'); //by_columns
-//require_once(__DIR__ . '/Chart_by_rows.php'); //by_rows
-//require_once(__DIR__ . '/Chart_mt_by_rows.php'); //by_rows
+require_once('../src/04.Chart_PR.php');
 
+$ecs = ["4.1.1.39", "2.3.3.8", "6.2.1.18", "2.3.1.169", "6.2.1.40", "1.3.1.84", "5.4.1.3", "4.2.1.153", "4.1.3.46", "1.2.1.75", "6.2.1.36", "4.2.1.120"];
 
-//$ec_colors = ["4.1.1.39" => 'green', "2.3.3.8" => '#f48f42', "6.2.1.18" => '#f48f42', "2.3.1.169" => '#f4415c', "1.2.1.75" => '#414cf4', "6.2.1.36" => '#8342f4', "6.2.1.40" => '#8342f4'];
 $sites_counts = [];
 $sites_rel_ab_custom = [];
 
 foreach (glob("../data/tax_grouped/Mt_*.test.test.final_3.taxa") as $file){
   $site = basename($file, ".test.test.final_3.taxa");
-  $taxa_counts = get_taxa_counts_from_file_by_ec_taxa_name($file, $ecs, 5);
+  $taxa_counts = make_ec_tax_count_arr($file, $ecs, 5);
   $sites_counts[$site] = $taxa_counts;
   if ( isset($mt_count_arr[$site]))
-    $sites_rel_ab_custom[$site] = get_rel_abs_custom_from_ec_tax_name_tax_count_array($taxa_counts, $mt_count_arr[$site]);
+    $sites_rel_ab_custom[$site] = get_relab_from_ec_tax_count_arr($taxa_counts, $mt_count_arr[$site]);
 }
 
 
