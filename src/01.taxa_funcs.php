@@ -35,6 +35,18 @@ function get_relab_from_ec_tax_count_arr($ec_taxa_counts, $total) {
   return $rel_abs_custom;
 }
 
+function make_site_ec_tax_relab_arr($files, $end_name = "", $ecs, $total_count_arr){
+  $sites_counts = [];
+  $sites_rel_ab_custom = [];
+  foreach ($files as $file){
+    $site = basename($file, $end_name);
+    $taxa_counts = make_ec_tax_count_arr($file, $ecs, 5);
+    $sites_counts[$site] = $taxa_counts;
+    if ( isset($total_count_arr[$site]))
+      $sites_rel_ab_custom[$site] = get_relab_from_ec_tax_count_arr($taxa_counts, $total_count_arr[$site]);
+  }
+  return $sites_rel_ab_custom;
+}
 //saca rankings desde un array o subarray que tiene los taxa names y los taxa_counts 
 function get_rankings_from_tax_count($taxa_count, $max = 1000) {
  $ranking = [];

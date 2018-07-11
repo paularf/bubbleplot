@@ -9,21 +9,12 @@ $ecs = ["4.1.1.39", "2.3.3.8", "6.2.1.18", "2.3.1.169", "6.2.1.40", "1.3.1.84", 
 
 $sites_counts = [];
 $sites_rel_ab_custom = [];
-
 foreach (glob("../data/tax_grouped/Mg_*.test.test.final_3.taxa") as $file){
   $site = basename($file, ".test.test.final_3.taxa");
   $taxa_counts = make_ec_tax_count_arr($file, $ecs, 5);
   $sites_counts[$site] = $taxa_counts;
   if ( isset($mg_count_arr[$site]))
     $sites_rel_ab_custom[$site] = get_relab_from_ec_tax_count_arr($taxa_counts, $mg_count_arr[$site]);
-}
-
-
-function get_color_from_site_ec($site, $ec){
-  global $sites_colors;
-    if (isset($sites_colors[$site][$ec]))
-    return $sites_colors[$site][$ec];
-  else return 'black';
 }
 
 function flip_big_group_row_col_names($array){
@@ -42,7 +33,13 @@ function flip_big_group_row_col_names($array){
 
 $taxa_names = get_taxa_names($sites_rel_ab_custom);
 $oxy_sites = load_oxy_sites();
+//print_r($oxy_sites);
+$oxy_sites_r = load_oxy_sites_r();
+//print_r($oxy_sites_r);
 $oxy_colors = define_oxygen_layer($oxy_sites, $sites_counts);
+//print_r($oxy_colors);
+$oxy_colors_r = define_oxygen_layer($oxy_sites_r, $sites_counts);
+//print_r($oxy_colors_r);
 $site_oxy_list = get_site_names_by_oxy_def($oxy_colors, 'red');
 //$site_oxic_list = get_site_names_by_oxy_def($oxy_colors, 'green');
 //$site_oxic_list = ['Mg_Oxic_HOT186_25m_2_DNA_454', 'Mg_Oxic_HOT186_25m_DNA_454','Mg_ETSP_MOOMZ1_15m_DNA_454', 'Mg_ETSP_MOOMZ2_35m_DNA_454', 'Mg_ETNP_OMZoMBiE_2013_St6_30m_DNA_IluMS', 'Mg_ETNP_OMZoMBiE_2013_St10_30m_DNA_IluMS'];
@@ -86,38 +83,11 @@ foreach ($leyend_scale as $value){
 }
 
 
-
-
-
-
 echo '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="1000" width="1500">';
 $chart->draw(180, 210);
 
 //draw_leyend (284, 430, $leyend_scale, $scientific_notation); //mt
 draw_leyend (284, 700, $leyend_scale, $scientific_notation); //mg
-//draw_variables_by_site(1200, 200, $oxy_sites);
 
-//draw_scale_leyend_by_color(700, 650, $scale);
-
-/*$chart->filter = function($big_group, $row_name, $col_name, $value) {
-  global $oxy_colors;
-  if ( $oxy_colors[$row_name]['color'] == 'red' ) return true;
-  else return false;
-};
-$chart->draw(260, 150);
-
-$chart->filter = function($big_group, $row_name, $col_name, $value) {
-  global $oxy_colors;
-  if ( $oxy_colors[$row_name]['color'] == 'blue' ) return true;
-  else return false;
-};
-$chart->draw(260, 600);
-
-$chart->filter = function($big_group, $row_name, $col_name, $value) { //está solo en función del site, los otros eestán demás, importa el orden? la coma podría ser un ó
-  global $oxy_colors;
-  if ( $oxy_colors[$row_name]['color'] == 'green' ) return true;
-  else return false;
-};
-$chart->draw(260, 1100);*/
 
 echo '</svg>';
