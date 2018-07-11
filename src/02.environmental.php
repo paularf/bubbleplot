@@ -1,13 +1,13 @@
 <?php
 
-function load_oxy_sites($filename = 'Mt_ambientales.txt') {
+function load_oxy_sites($filename = '../data/Tax_grouped/Mg_ambientales.txt') {
   $oxy_sites = [];
-
   $file = fopen($filename, 'r');
   while($line = trim(fgets($file))){
     $cols = explode("\t", $line);
     $site_name = $cols[0];
     $oxygen = $cols[1];
+    //$nitrite = $cols[5]; 
     if (!isset($oxygen)) continue;
     else $oxy_sites[$site_name] = $oxygen;
   }

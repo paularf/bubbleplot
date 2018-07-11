@@ -10,12 +10,12 @@ $ecs = ["4.1.1.39", "2.3.3.8", "6.2.1.18", "2.3.1.169", "6.2.1.40", "1.3.1.84", 
 $sites_counts = [];
 $sites_rel_ab_custom = [];
 
-foreach (glob("../data/tax_grouped/Mt_*.test.test.final_3.taxa") as $file){
+foreach (glob("../data/tax_grouped/Mg_*.test.test.final_3.taxa") as $file){
   $site = basename($file, ".test.test.final_3.taxa");
   $taxa_counts = make_ec_tax_count_arr($file, $ecs, 5);
   $sites_counts[$site] = $taxa_counts;
-  if ( isset($mt_count_arr[$site]))
-    $sites_rel_ab_custom[$site] = get_relab_from_ec_tax_count_arr($taxa_counts, $mt_count_arr[$site]);
+  if ( isset($mg_count_arr[$site]))
+    $sites_rel_ab_custom[$site] = get_relab_from_ec_tax_count_arr($taxa_counts, $mg_count_arr[$site]);
 }
 
 
@@ -58,7 +58,7 @@ $chart->delta_y = 12;
 
 //$chart->column_names = $order_by_oxygen_level_list;//$taxa_names; //['4.1.1.39']
 $chart->row_names = $order_by_oxygen_level_list;//["4.1.1.39", "2.3.3.8", "6.2.1.18", "2.3.1.169", "1.2.1.75", "6.2.1.36", "6.2.1.40"];//['Cyanobacterias'];
-$chart->site_name_filters = ['Mt_', '_cDNA_454', '_cDNA_IluMs', '_cDNA_IluMS', '_454', 'IT'];
+//$chart->site_name_filters = ['Mt_', '_cDNA_454', '_cDNA_IluMs', '_cDNA_IluMS', '_454', 'IT'];
 //$chart->site_name_filters = ['Mg_', '_DNA_454', '_DNA_IluMs', '_DNA_IluMS', '_454', 'IT', 'PA5', 'PA2'];
 //$chart->data = $sites_rel_ab_custom;
 $chart->data = flip_big_group_row_col_names($sites_rel_ab_custom);
@@ -93,8 +93,8 @@ foreach ($leyend_scale as $value){
 echo '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="1000" width="1500">';
 $chart->draw(180, 210);
 
-draw_leyend (284, 430, $leyend_scale, $scientific_notation); //mt
-//draw_leyend (284, 700, $leyend_scale, $scientific_notation); //mg
+//draw_leyend (284, 430, $leyend_scale, $scientific_notation); //mt
+draw_leyend (284, 700, $leyend_scale, $scientific_notation); //mg
 //draw_variables_by_site(1200, 200, $oxy_sites);
 
 //draw_scale_leyend_by_color(700, 650, $scale);

@@ -26,7 +26,7 @@ function get_rel_abundance_custom_from_tax_count($taxa_count, $total){
   return $custom_taxa_rel;
 }
 
-//saca abundancias relativas aplicando función anterior al segundo nivel del array creado por la primera función.
+//saca abundancias relativas aplicando función anterior al segundo nivel del array creado por la primera funcion
 function get_relab_from_ec_tax_count_arr($ec_taxa_counts, $total) {
   $rel_abs_custom = [];
   foreach ( $ec_taxa_counts as $ecs => $counts ) {
@@ -35,7 +35,7 @@ function get_relab_from_ec_tax_count_arr($ec_taxa_counts, $total) {
   return $rel_abs_custom;
 }
 
-//saca rankings desde un array o subarray que tiene los taxa_counts 
+//saca rankings desde un array o subarray que tiene los taxa names y los taxa_counts 
 function get_rankings_from_tax_count($taxa_count, $max = 1000) {
  $ranking = [];
  arsort($taxa_count);
@@ -46,12 +46,22 @@ function get_rankings_from_tax_count($taxa_count, $max = 1000) {
     if ($i >= $max )
       break;
     $i++;
+      
   }
   return $ranking;
 }
 
-//abundancias relativas sumando los totales del tax_count_arr (en este caso es tomando en cuenta los genes de carbon_fix) 
-function get_relab_from_tax_count($taxa_count){
+//utiliza la función de arriba para sacar los rankins de los taxa_counts
+function get_rankings_from_ec_tax_name_tax_count_array($taxa_counts, $max = 1000) {
+  $rankings = [];
+  foreach ( $taxa_counts as $ecs => $counts ) {
+    $rankings[$ecs] = get_rankings_from_tax_count($counts, $max);
+  }
+  return $rankings;
+}
+
+//abundancias relativas sumando los totales del array (en este caso es tomando en cuenta los genes de carbon_fix pero no es válido para comparar entre metaomasç)
+function get_rel_abundance_from_tax_count($taxa_count){
   $total = array_sum($taxa_count);
   $taxa_rel = [];
   foreach($taxa_count as $tax_name => $count){
@@ -65,7 +75,7 @@ function get_relab_from_tax_count($taxa_count){
 function get_rel_abs_from_ec_tax_name_tax_count_array($ec_taxa_counts) {
   $rel_abs = [];
   foreach ( $ec_taxa_counts as $ecs => $counts ) {
-    $rel_abs[$ecs] = get_relab_from_tax_count($counts);
+    $rel_abs[$ecs] = get_rel_abundance_from_tax_count($counts);
   }
   return $rel_abs;
 }
@@ -83,8 +93,7 @@ function get_taxa_names($sites) {
   return $result;
 }
 
-//revisar esta!
-function get_color_from_ec_colors_and_site_ec_array($ec_colors, $sites_counts){
+function get_color_from_ec_colors_and_site_ec_array ($ec_colors, $sites_counts){
 $site_color = [];
   foreach($sites_counts as $site => $ec_tax_name_array){
     foreach ($ec_tax_name_array as $ec => $tax_name_count_array){
@@ -95,7 +104,6 @@ $site_color = [];
   }
   return $site_color;
 }
-
 
 
 
