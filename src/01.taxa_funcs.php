@@ -1,29 +1,22 @@
 <?php
-//Esta function devuelve un arreglo con los taxa_counts por tax_name y ec
-require_once(__DIR__ . '/06.total_counts.php'); //para buscar en el mismo directorio donde está este archivo
-$ecs = ["4.1.1.39", "2.3.3.8", "6.2.1.18", "2.3.1.169", "6.2.1.40", "1.3.1.84", "5.4.1.3", "4.2.1.153", "4.1.3.46", "1.2.1.75", "6.2.1.36", "4.2.1.120"];
-$ecs_path = ["6.2.1.40" => "DC/4HB_3HP/4HB", "1.3.1.84" => "3HP/4HB", "5.4.1.3" => "3HP", "4.2.1.153" => "3HP", "4.1.3.25" => "3HP_Deg", "4.1.3.46" => "3HP", "1.2.1.75" => "3HP/4HB_3HP(?)", "6.2.1.36" => "3HP/4HB_3HP(?)", "4.2.1.120" =>"4HP/4HB_DC/4HB", "1.2.7.1" => "DC_prom", "2.7.9.2" => "DC_prom", "4.1.1.31" => "DC_prom"];
 
-function get_taxa_counts_from_file_by_ec_taxa_name($file, $ecs, $limit = 2) {
+function make_ec_tax_count_arr($file, $ecs, $limit = 2) {
   $f = fopen($file, "r");
-
   $taxa_counts = [];
-
   while ($line = trim(fgets($f))){
     $columns = explode("\t", $line);
     $ec_number = $columns[0];
     $taxa_name = $columns[1];
     $taxa_count= $columns[2];
     if ($taxa_count <= $limit) continue;
-
-    if ( in_array($ec_number, $ecs) )
+    if (in_array($ec_number, $ecs))
       $taxa_counts[$ec_number][$taxa_name] = $taxa_count;
   }
   fclose($f);
   return $taxa_counts;
 }
 
-//saca abundancias relativas del array que contiene tax_name y $counts(no exixte, pero es subarray interno del taxa_counts, dividir y triunfar!
+//saca abundancias relativas del array que contiene tax_name y $counts(para ser usado en array de un nivel)
 function get_rel_abundance_custom_from_tax_count($taxa_count, $total){
   $custom_taxa_rel = [];
   foreach($taxa_count as $tax_name => $count){
@@ -33,9 +26,8 @@ function get_rel_abundance_custom_from_tax_count($taxa_count, $total){
   return $custom_taxa_rel;
 }
 
-//saca abundancias relativas usando el array taxa_counts
-//$ec_taxa_counts == $taxa_counts devueltos de arriba!!
-function get_rel_abs_custom_from_ec_tax_name_tax_count_array($ec_taxa_counts, $total) {
+//saca abundancias relativas aplicando función anterior al segundo nivel del array creado por la primera funcion
+function get_relab_from_ec_tax_count_arr($ec_taxa_counts, $total) {
   $rel_abs_custom = [];
   foreach ( $ec_taxa_counts as $ecs => $counts ) {
     $rel_abs_custom[$ecs] = get_rel_abundance_custom_from_tax_count($counts, $total);
@@ -43,6 +35,18 @@ function get_rel_abs_custom_from_ec_tax_name_tax_count_array($ec_taxa_counts, $t
   return $rel_abs_custom;
 }
 
+function make_site_ec_tax_relab_arr($files, $end_name = "", $ecs, $total_count_arr){
+  $sites_counts = [];
+  $sites_rel_ab_custom = [];
+  foreach ($files as $file){
+    $site = basename($file, $end_name);
+    $taxa_counts = make_ec_tax_count_arr($file, $ecs, 5);
+    $sites_counts[$site] = $taxa_counts;
+    if ( isset($total_count_arr[$site]))
+      $sites_rel_ab_custom[$site] = get_relab_from_ec_tax_count_arr($taxa_counts, $total_count_arr[$site]);
+  }
+  return $sites_rel_ab_custom;
+}
 //saca rankings desde un array o subarray que tiene los taxa names y los taxa_counts 
 function get_rankings_from_tax_count($taxa_count, $max = 1000) {
  $ranking = [];
@@ -59,13 +63,6 @@ function get_rankings_from_tax_count($taxa_count, $max = 1000) {
   return $ranking;
 }
 
-
-/*
-Devuelve un array con los rankings de un array con los taxa_counts
-igual al de la salida de la funcion get_taxa_counts_from_file_by_ec_taxa_name
-
-$resultado[ec][tax_name] = ranking
-*/
 //utiliza la función de arriba para sacar los rankins de los taxa_counts
 function get_rankings_from_ec_tax_name_tax_count_array($taxa_counts, $max = 1000) {
   $rankings = [];
