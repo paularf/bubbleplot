@@ -10,68 +10,37 @@ function load_oxy_sites($filename = '../data/Tax_grouped/Mg_ambientales.txt') {
     if(isset($cols[5])) $nitrite = $cols[5];
     else $nitrite = null; 
     if (!isset($oxygen)) $oxygen = null;
-    $oxy_sites[$site_name] = $oxygen;
+    $oxy_sites[$site_name] = [$nitrite, $oxygen];
   }
-  fclose($file);
   return $oxy_sites;
-}
-function load_oxy_sites_r($filename = '../data/Tax_grouped/Mg_ambientales.txt') {
-  $oxy_sites = [];
-  $file = fopen($filename, 'r');
-  while($line = trim(fgets($file))){
-    $cols = explode("\t", $line);
-    $site_name = $cols[0];
-    $oxygen = $cols[1];
-    if(isset($cols[5])) $nitrite = $cols[5];
-    else $nitrite = null; 
-    if (!isset($oxygen)) $oxygen = null;
-    $oxy_sites[$site_name] = [
-      'nitrite' => $nitrite,
-      'oxygen' => $oxygen
-    ];
-  }
   fclose($file);
-  return $oxy_sites;
 }
-function define_oxygen_layer_r($oxy_sites, $sites_counts){
+
+
+function define_oxygen_layer($oxy_sites, $sites_counts){
   $oxy_def = [];
   $elem = "";
   foreach ($sites_counts as $sites => $ec_tax_arr){
-      if (isset($oxy_sites[$sites])){
+      if (isset($oxy_sites[$sites])){ 
         $nitrite = $oxy_sites[$sites][0];
         $oxygen = $oxy_sites[$sites][1];
-      }
-      if($nitrite >= 0.5 || $oxygen <= 2) $elem = "anoxic";
-      else if($oxygen >= 150) $elem = "oxic";
-      else $elem = "suboxic";
-      $oxy_def[$sites] = $elem;
-  }
-  return $oxy_def;
-}
-function define_oxygen_layer($oxy_sites, $sites_counts){
-  $oxy_def = [];
-  foreach ($sites_counts as $sites => $counts){
-      $elem = [ 'value' => null, 'color' => 'black' ];
-      if (isset($oxy_sites[$sites])){
-        $o = $oxy_sites[$sites];
-        if ($o <= 5) $elem['color'] = "red"; //anoxico
-        else if ($o >= 150) $elem['color'] = "green"; //oxico
-        else $elem['color'] = "blue"; //oxiclina
-        
-        $elem['value'] = $o; 
-      }
+        if($nitrite >= 0.45 && $oxygen <= 2) $elem = "anoxic";
+        else if($oxygen >= 150) $elem = "oxic";
+        else $elem = "suboxic";
+      } else $elem = "non_def";
       $oxy_def[$sites] = $elem;
   }
   return $oxy_def;
 }
 
-function get_site_names_by_oxy_def($oxy_colors, $color){
+function get_site_names_by_oxy_def($site_oxy_def, $def){
   $site_oxy_list = [];  
-  foreach ($oxy_colors as $site => $oxy_def){
-    if ($oxy_def['color'] == $color) $site_oxy_list[] = $site;
+  foreach ($site_oxy_def as $site => $oxy_def){
+    if ($oxy_def == "$def") $site_oxy_list[] = $site;
   }
   return $site_oxy_list;      
 }
+
 function get_site_names_by_oxy_def_r($sites_oxy_def, $def){
   $site_oxy_list = [];  
   foreach ($sites_oxy_def as $site => $oxy_def){
@@ -103,6 +72,3 @@ function draw_variables_by_site($x, $y, $site_variables){
     $y += 10;
   }
 }
-
-
-

@@ -3,7 +3,7 @@ require_once('../data/php/00.total_counts.php');
 require_once('../src/01.taxa_funcs.php');
 require_once('../src/02.environmental.php');
 require_once('../src/03.leyend.php');
-require_once('../src/04.Chart_PR.php');
+require_once('../src/04.Chart.php');
 
 $ecs = ["4.1.1.39", "2.3.3.8", "6.2.1.18", "2.3.1.169", "6.2.1.40", "1.3.1.84", "5.4.1.3", "4.2.1.153", "4.1.3.46", "1.2.1.75", "6.2.1.36", "4.2.1.120"];
 
@@ -40,7 +40,7 @@ $oxy_colors = define_oxygen_layer($oxy_sites, $sites_counts);
 //print_r($oxy_colors);
 $oxy_colors_r = define_oxygen_layer($oxy_sites_r, $sites_counts);
 //print_r($oxy_colors_r);
-$site_oxy_list = get_site_names_by_oxy_def($oxy_colors, 'red');
+$site_oxy_list = get_site_names_by_oxy_def_r($oxy_colors_r, 'red');
 //$site_oxic_list = get_site_names_by_oxy_def($oxy_colors, 'green');
 //$site_oxic_list = ['Mg_Oxic_HOT186_25m_2_DNA_454', 'Mg_Oxic_HOT186_25m_DNA_454','Mg_ETSP_MOOMZ1_15m_DNA_454', 'Mg_ETSP_MOOMZ2_35m_DNA_454', 'Mg_ETNP_OMZoMBiE_2013_St6_30m_DNA_IluMS', 'Mg_ETNP_OMZoMBiE_2013_St10_30m_DNA_IluMS'];
 $site_oxic_list = get_site_names_by_oxy_def($oxy_colors, 'green');
