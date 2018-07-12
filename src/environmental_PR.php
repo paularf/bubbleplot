@@ -41,14 +41,6 @@ function get_site_names_by_oxy_def($site_oxy_def, $def){
   return $site_oxy_list;      
 }
 
-function get_site_names_by_oxy_def_r($sites_oxy_def, $def){
-  $site_oxy_list = [];  
-  foreach ($sites_oxy_def as $site => $oxy_def){
-    if ($oxy_def == "$def") $site_oxy_list[] = $site;
-  }
-  return $site_oxy_list;      
-}
-
 
 function draw_rect($x, $y, $width, $height, $color) {
   printf("<rect x='$x' y='$y' width='$width' height='$height' style='fill:$color' />");
