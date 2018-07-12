@@ -46,36 +46,37 @@ function draw_bubble($x, $y, $value, $color = 'red') {
   printf('<ellipse cx="%f" cy="%f" rx="%f" ry="%f" fill-opacity="0.2" style="fill:%s;stroke:%s;stroke-width:1" />', $x, $y, $value, $value, $color, $color);
 }
 
-function draw_color_bubble_from_three_level_arr($x, $y, $data, $site, $ec, $tax, $color, $scale) {
-  $value = get_value($data, $site, $ec, $tax);
+function draw_color_bubble_from_three_level_arr($x, $y, $data, $big_group, $row_name, $col_name, $color, $bubble_scale) {
+  $value = get_value($data, $big_group, $row_name, $col_name);
   if ($value > 0){ 
-    draw_bubble($x, $y, $value * $scale, $color);
+    draw_bubble($x, $y, $value * $bubble_scale, $color);
     return true;
   }  
   else return false;  
 } 
- /*
 
-function draw_bubble_column_by_big_group_col_name($x, $y, $big_group, $col_name) { 
-  $current_y = $y;
-  draw_text($x, $current_y - 10, $col_name, '60', '8');
-  foreach ( row_names as $row_name){
-    $bubble = draw_color_bubble_by_big_group_row_name_col_name($x, $current_y, $big_group, $row_name, $col_name);
-    //if ($bubble == true)
-      $current_y += delta_y;
-  }
-  draw_line($x, $y, $x, $current_y - delta_y, 'black', 0.1);
+function draw_tax_column_by_metaomes_as_row($x, $y, $delta_y, $data, $sites, $ec, $tax, $color, $bubble_scale){ 
+	$current_y = $y; //no cambia $y!!
+	draw_text($x, $y - 20, $tax, 60, 8, $weigth = 'normal');
+	foreach($sites as $site){
+		draw_text($x - 220, $current_y, $site, 0, 8, $weigth = 'normal');
+		draw_color_bubble_from_three_level_arr($x, $current_y, $data, $site, $ec, $tax, $color, $bubble_scale);
+		$current_y += $delta_y;
+	}
+	draw_line($x, $y, $x, $current_y, 'black', 0.4);
 }
+/*
+function draw_bubbles_per_ec($x, $y, $delta_x, $delta_y, $data, $sites, $ec, $taxas, $color, $bubble_scale){
+	$current_x = $x;
+	foreach($tax_arr as $tax){ 
+		draw_tax_column_by_metaomes_as_row($x, $y, $delta_y, $data, $sites, $ec, $tax, $color, $bubble_scale);
+		$current_x += $delta_x;
+	}
+	draw_line($x, $y, $current_x, $y, 'black', 0.4);
 
+}*/
 
-function get_total_by_column($big_group, $col_name){
-  $total = 0;
-  foreach (row_names as $row_name){
-    $total += get_value($big_group, $row_name, $col_name); //ojo
-  }
-  return $total;
-}
-
+/*
 function clean_site_name($site) {
   foreach ( site_name_filters as $filter ) {
     $site = str_replace($filter, '', $site);

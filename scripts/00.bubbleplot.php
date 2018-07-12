@@ -24,7 +24,7 @@ function flip_big_group_row_col_names($array){
       foreach ($tax_value_arr as $tax_name => $value){
         $r[$ec][$site][$tax_name] = $value;
         //$r[$ec][$tax_name][$site] = $value;
-        //$r[$site][$tax_name][$ec] = $value;
+        //$r[$site][$ec]$tax_name = $value;
       }
     }
   }
