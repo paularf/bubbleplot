@@ -1,0 +1,36 @@
+{
+    "name": "paularf/bubbleplot",
+    "description": "Library to generate static sites",
+    "license" : "MIT",
+    "minimum-stability" : "stable",
+    "require": {
+        "php" : "^7.2"
+    },
+    "require-dev" : {
+        "phpunit/phpunit" : "^7.0",
+        "mikey179/vfsStream": "^1.6"
+    },
+    "autoload" : {
+        "psr-4" : {
+            "paularf\\bubbleplot\\" : "src/"
+        }
+    },
+    "autoload-dev" : {
+        "psr-4" : {
+            "test\\paularf\\bubbleplot\\" : "tests/"
+        }
+    },
+    "archive": {
+        "exclude": [
+	    "/data",
+            "/tests",
+            ".git",
+            ".gitignore",
+            "/.travis.yml",
+            "/phpunit.xml.dist",
+            "/examples",
+            "/.idea",
+            "README.md"
+        ]
+    }
+}
