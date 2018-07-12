@@ -41,24 +41,20 @@ function draw_line($x1, $y1, $x2, $y2, $stroke, $width = 4) {
   printf('<line x1="%f" y1="%f" x2="%f" y2="%f" style="stroke:%s;stroke-width:%f" />', $x1, $y1, $x2, $y2, $stroke, $width);
   echo "\n";
 }
- /*
 
 function draw_bubble($x, $y, $value, $color = 'red') {
   printf('<ellipse cx="%f" cy="%f" rx="%f" ry="%f" fill-opacity="0.2" style="fill:%s;stroke:%s;stroke-width:1" />', $x, $y, $value, $value, $color, $color);
 }
 
-
-function draw_color_bubble_by_big_group_row_name_col_name($x, $y, $big_group, $row_name, $col_name) {
-  $value = get_value($big_group, $row_name, $col_name);
-  $func = get_color;
-  $color = $func($big_group, $row_name, $col_name); //por mi versión de php
+function draw_color_bubble_from_three_level_arr($x, $y, $data, $site, $ec, $tax, $color, $scale) {
+  $value = get_value($data, $site, $ec, $tax);
   if ($value > 0){ 
-    draw_bubble($x, $y, $value * bubble_scale, $color);
+    draw_bubble($x, $y, $value * $scale, $color);
     return true;
   }  
   else return false;  
 } 
-
+ /*
 
 function draw_bubble_column_by_big_group_col_name($x, $y, $big_group, $col_name) { 
   $current_y = $y;

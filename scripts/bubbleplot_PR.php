@@ -20,9 +20,12 @@ $mg_suboxic_list = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "suboxic");
 $mg_anoxic_list = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "anoxic");
 $mg_list_by_oxygen = array_merge($mg_oxic_list, $mg_suboxic_list, $mg_anoxic_list);
 
+//bubble_parameters
+$bubble_scale = 100000;
+
 echo '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="1000" width="1500">';
 
-draw_column_text(200, 200, $mg_list_by_oxygen);
-draw_line(200, 300, 400, 300, 'red', $width = 4);
-
+//draw_row_names(200, 200, $mg_list_by_oxygen);
+//draw_line(200, 300, 400, 300, 'red', $width = 2);
+draw_color_bubble_from_three_level_arr(200, 300, $mg_site_ec_tax_relab, 'Mg_Arabian_Sea_OMZ_oxycline_PA2_IT', '4.2.1.120', 'Thaumarchaeote - 3HP/4HB', $color = 'green', $bubble_scale);
 echo '</svg>';
