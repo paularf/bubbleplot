@@ -21,32 +21,27 @@ function draw_row_names($x, $y, $row_names){
   }
 }
 
-function draw_row_text($x, $y, $texts){
+function draw_column_text($x, $y, $texts){
   $current_x = $x;
   foreach ($texts as $text){
     draw_text($current_x, $y, $text, 90, 8);
     $current_x += 10;
   }
 }
-/*
-function get_value($big_group, $row_name, $col_name){
-  if (isset(data[$big_group][$row_name][$col_name])) {
-    $value = data[$big_group][$row_name][$col_name];
-    $func = filter;
-    if ( $func($big_group, $row_name, $col_name, $value) )
-      return $value;
-    else
-      return 0;
+
+function get_value($data, $level_3, $level_2, $level_1){
+  if (isset($data[$level_3][$level_2][$level_1])) {
+    $value = $data[$level_3][$level_2][$level_1];
+    return $value;
   }
   else return 0;
 } 
-//es decir, este objeto permite dibujar valores desde archivos que contengan arreglos de tres niveles, ni más ni menos
 
 function draw_line($x1, $y1, $x2, $y2, $stroke, $width = 4) {
   printf('<line x1="%f" y1="%f" x2="%f" y2="%f" style="stroke:%s;stroke-width:%f" />', $x1, $y1, $x2, $y2, $stroke, $width);
   echo "\n";
 }
-
+ /*
 
 function draw_bubble($x, $y, $value, $color = 'red') {
   printf('<ellipse cx="%f" cy="%f" rx="%f" ry="%f" fill-opacity="0.2" style="fill:%s;stroke:%s;stroke-width:1" />', $x, $y, $value, $value, $color, $color);
