@@ -189,4 +189,66 @@ class DataTest extends \PHPUnit\Framework\TestCase {
 		$this->assertEquals($expected_data, $filtered_data->data);
 	}
 
+		public function testFilterByCol() {
+		$data = new Data;
+		$data->data = [
+			'Group' => [
+				'row' => [
+					'col_1' => 100
+				]
+			],
+			'Group2' => [
+				'row_2' => [
+					'col_2' => 200
+				],
+				'row_3' => [
+					'col_3' => 300
+				]
+			]
+		];
+
+		$filtered_data = $data->filter_by_columns(['col_1', 'col_3']);
+
+		$this->assertEquals(['col_1', 'col_3'], $filtered_data->get_column_names());
+	}
+
+	public function testFiltered_by_rows_and_cols(){
+		$data = new Data;
+		$data->data = [
+			'Group' => [
+				'row' => [
+					'col_1' => 100
+				]
+			],
+			'Group2' => [
+				'row_2' => [
+					'col_2' => 200
+				],
+				'row_3' => [
+					'col_3' => 300
+				]
+			]
+		];
+
+		$row_filter = ['row', 'row_3'];
+		$col_filter = ['col_3'];
+		$expected_result = [
+			'Group' => [
+				'row' => [
+				]
+			],
+			'Group2' => [
+				'row_3' => [
+					'col_3' => 300
+				]
+			]
+		];
+		$data_filtered = $data
+			->filter_by_rows($row_filter)
+			->filter_by_columns($col_filter);
+			
+		//$data_filtered_by_rows_and_cols = $data_filtered_by_rows->filter_by_columns($col_filter);
+		$this->assertEquals($expected_result, $data_filtered->data);
+
+	}
 }

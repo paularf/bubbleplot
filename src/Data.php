@@ -52,10 +52,21 @@ class Data {
 		return $new_data_object;
 	}
 
-
-
-
-
+	function filter_by_columns($filtered_cols){
+		$new_data = [];
+		foreach($this->data as $group => $rows){
+			foreach($rows as $row => $cols){
+				$new_data[$group][$row] = [];
+				foreach($filtered_cols as $filtered_col){
+					if(isset($cols[$filtered_col]))
+						$new_data[$group][$row][$filtered_col] = $cols[$filtered_col];
+				}
+			}
+		}
+		$new_data_object = new Data;
+		$new_data_object->data = $new_data;
+		return $new_data_object;
+	}
 
 
 }
