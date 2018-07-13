@@ -5,7 +5,7 @@ class Chart {
 
 public $delta_x;
 public $delta_y;
-public $data;
+public $data; //este vendrá del objeto Data
 public $row_names;
 public $column_names; 
 public $bubble_scale;
@@ -34,7 +34,7 @@ EOF;
 }
 
 function draw_row_names($x, $y){
-  foreach ($this->row_names as $row_name){ //los $this, pueden estar en cualquier parte del objeto, no teniendo que ser argumentos de la función
+  foreach ($this->row_names as $row_name){ 
     $y += $this->delta_y;
     $row_name = $this->clean_site_name($row_name);
     $this->draw_text($x, $y, $row_name, 0, 10);
@@ -49,18 +49,6 @@ function draw_row_text($x, $y, $texts){ //texto de las columnas
   }
 }
 
-function get_value($big_group, $row_name, $col_name){
-  if (isset($this->data[$big_group][$row_name][$col_name])) {
-    $value = $this->data[$big_group][$row_name][$col_name];
-    $func = $this->filter;
-    if ( $func($big_group, $row_name, $col_name, $value) )
-      return $value;
-    else
-      return 0;
-  }
-  else return 0;
-} 
-//es decir, este objeto permite dibujar valores desde archivos que contengan arreglos de tres niveles, ni más ni menos
 
 function draw_line($x1, $y1, $x2, $y2, $stroke, $width = 4) {
   printf('<line x1="%f" y1="%f" x2="%f" y2="%f" style="stroke:%s;stroke-width:%f" />', $x1, $y1, $x2, $y2, $stroke, $width);
@@ -74,7 +62,7 @@ function draw_bubble($x, $y, $value, $color = 'red') {
 
 
 function draw_color_bubble_by_big_group_row_name_col_name($x, $y, $big_group, $row_name, $col_name) {
-  $value = $this->get_value($big_group, $row_name, $col_name);
+  $value = $this->data->get_value($big_group, $row_name, $col_name);
   $func = $this->get_color;
   $color = $func($big_group, $row_name, $col_name); //por mi versión de php
   if ($value > 0){ 
@@ -153,36 +141,13 @@ function draw_bubble_metaomas_zig_zag_names($x, $y){
   }  
 }
 
-function get_column_names() {
-  $result = [];
-  foreach ( $this->data as $rows ) {
-    foreach ( $rows as $columns ) {
-      foreach ( $columns as $col_name => $value ) {
-        if ( in_array($col_name, $result) ) continue;
-        $result[] = $col_name;
-      }
-    }
-  }
-  return $result;
-}
-
-function get_row_names() {
-  $result = [];
-  foreach ( $this->data as $rows ) {
-    foreach ( $rows as $row_name => $rows ) {
-        if ( in_array($row_name, $result) ) continue;
-        $result[] = $row_name;
-    }
-  }
-  return $result;
-}
 
 function draw($x, $y) {
   if ( empty($this->row_names) ) {
-    $this->row_names = $this->get_row_names();
+    $this->row_names = $this->data->get_row_names();
   }
   if ( empty($this->column_names) ) {
-    $this->column_names = $this->get_column_names();
+    $this->column_names = $this->data->get_column_names();
   }
   $this->draw_row_names($x - 140, $y - 8, $this->row_names);
   
