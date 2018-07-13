@@ -27,6 +27,7 @@ function flip_big_group_row_col_names($array){
   }
   return $r;
 }
+$data_test = flip_big_group_row_col_names($mg_site_ec_tax_relab);
 //oxigeno
 $mg_oxy_sites = load_oxy_sites();
 $mg_oxy_def_by_sites = define_oxygen_layer($mg_oxy_sites, $mg_site_ec_tax_relab);
@@ -44,16 +45,10 @@ $delta_y = 20;
 $delta_x = 20;
 
 echo '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="1000" width="1500">';
+draw_row_names(0, 200, $mg_list_by_oxygen);
 
-//draw_row_names(200, 200, $mg_list_by_oxygen);
-//draw_line(200, 300, 400, 300, 'red', $width = 2);
-//draw_color_bubble_from_three_level_arr(200, 300, $mg_site_ec_tax_relab, 'Mg_Arabian_Sea_OMZ_oxycline_PA2_IT', '4.2.1.120', 'Thaumarchaeote - 3HP/4HB', $color = 'green', $bubble_scale);
-//draw_bubble_column_by_big_group_col_name(200, 400, 20, $mg_site_ec_tax_relab, 'Mg_Arabian_Sea_OMZ_oxycline_PA2_IT', $ecs, 'Thaumarchaeote - 3HP/4HB', $color = 'green', $bubble_scale);
-
-//draw_tax_column_by_metaomes_as_row(200, 400, $delta_y, $mg_site_ec_tax_relab, $mg_list_by_oxygen, '4.2.1.120', 'Thaumarchaeote - 3HP/4HB', $color = "red", $bubble_scale);
-draw_bubbles_per_ec(200, 200, $delta_x, $delta_y, $mg_site_ec_tax_relab, $mg_list_by_oxygen, '4.2.1.120', $mg_site_ec_tax_relab['Mg_Arabian_Sea_OMZ_oxycline_PA2_IT']['4.2.1.120'], $color = 'red', $bubble_scale);
-//draw_tax_bubbles_per_unique_ec_and_metaome(200, 200, $delta_x, $mg_site_ec_tax_relab, 'Mg_Arabian_Sea_OMZ_oxycline_PA2_IT', '4.2.1.120', $mg_site_ec_tax_relab['Mg_Arabian_Sea_OMZ_oxycline_PA2_IT']['4.2.1.120'], $color = 'red', $bubble_scale);
-//draw_metaome (200, 200, $delta_x, $delta_y, $mg_site_ec_tax_relab, 'Mg_Arabian_Sea_OMZ_oxycline_PA2_IT', $mg_site_ec_tax_relab['Mg_Arabian_Sea_OMZ_oxycline_PA2_IT'] , $color = 'red', $bubble_scale);
-//draw_metaomes(200, 200, $delta_x, $delta_y, $mg_site_ec_tax_relab, $color = 'red', $bubble_scale);
+draw_bubble_column_by_big_group_col_name(300, 200, $delta_y, $data_test, '4.2.1.120', $mg_list_by_oxygen, 'Thaumarchaeote - 3HP/4HB', $color = 'red', $bubble_scale);
+//draw_bubble_per_metaoma($x, $y, $delta_x, $delta_y, $data, $row_names, $big_group, $column_names, $color, $bubble_scale);
+draw_bubble_per_metaoma(250, 200, $delta_x, $delta_y, $data_test, '4.2.1.120', $mg_list_by_oxygen, $data_test['4.2.1.120']['Mg_ETSP_BiG_RAPA_St1_1000m_pf_454'],  $color = 'rojo', $bubble_scale);
 
 echo '</svg>';

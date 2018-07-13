@@ -1,25 +1,24 @@
 <?php
-//una clase puede tener constantes y variables (propiedades), así como sus propias funciones (métodos) 
+namespace paularf\bubbleplot;
+
 class Chart {
 
 public $delta_x;
 public $delta_y;
 public $data;
 public $row_names;
-public $column_names; // row y columns están por defecto autodefinidos en el objeto (abajo)
+public $column_names; 
 public $bubble_scale;
 public $get_color;
 public $filter;
 public $site_name_filters = [];
- //estos no son necesarios en php pero es mejor para mantener el orden
 
 function __construct() {
-  $this->get_color = function($big_group, $row_name, $col_name) { return 'red'; }; //funcion anonima modificable
+  $this->get_color = function($big_group, $row_name, $col_name) { return 'red'; }; //función anónima modificable
   $this->filter = function($big_group, $row_name, $col_name, $value) {
     return true;
   };
 }// la función construtor se ejecuta cada ver que uno ejecuta un new! y tiene esos valores por defecto, luego se puede modificar
-
 //texto con un ángulo de rotación
 function draw_text($x, $y, $text, $rotation_angle = 0, $size = 8, $weigth = 'normal'){
       echo <<<EOF
@@ -194,4 +193,3 @@ function draw($x, $y) {
 }
 
 }
-
