@@ -55,26 +55,59 @@ function draw_color_bubble_from_three_level_arr($x, $y, $data, $big_group, $row_
   else return false;  
 } 
 
+function draw_tax_bubbles_per_unique_ec_and_metaome($x, $y, $delta_x, $data, $site, $ec, $tax_arr, $color, $bubble_scale){
+	$current_x = $x;
+	$tax_count = 0;
+	foreach($tax_arr as $tax => $value){
+		draw_text($current_x, $y - 20, $tax, 60, 8, $weigth = 'normal');
+		draw_color_bubble_from_three_level_arr($current_x, $y, $data, $site, $ec, $tax, $color, $bubble_scale);
+	$current_x += $delta_x;
+	$tax_count += 1;
+	}
+	return $tax_count;
+}
+
+function draw_metaome ($x, $y, $delta_x, $delta_y, $data, $site, $ec_arr, $color, $bubble_scale){
+	draw_text($x - 200, $y, $site, 0, 8, $weigth = 'normal');
+	$current_x = $x;
+	foreach($ec_arr as $ec => $tax_arr){
+		draw_text($current_x, $y - 40, $ec, 60, 8, $weigth = 'normal');
+		$tax_count = draw_tax_bubbles_per_unique_ec_and_metaome($current_x, $y, $delta_x, $data, $site, $ec, $tax_arr, $color, $bubble_scale);
+		$current_x += $delta_x * ($tax_count + 1);
+	}
+}
+function draw_metaomes($x, $y, $delta_x, $delta_y, $data, $color, $bubble_scale){
+	$current_y = $y;
+	foreach ($data as $site => $ec_arr){
+		draw_metaome ($x, $current_y, $delta_x, $delta_y, $data, $site, $ec_arr, $color, $bubble_scale);
+		$current_y += $delta_y;
+	}
+}
+
+
+
+
+
 function draw_tax_column_by_metaomes_as_row($x, $y, $delta_y, $data, $sites, $ec, $tax, $color, $bubble_scale){ 
 	$current_y = $y; //no cambia $y!!
 	draw_text($x, $y - 20, $tax, 60, 8, $weigth = 'normal');
 	foreach($sites as $site){
-		draw_text($x - 220, $current_y, $site, 0, 8, $weigth = 'normal');
 		draw_color_bubble_from_three_level_arr($x, $current_y, $data, $site, $ec, $tax, $color, $bubble_scale);
 		$current_y += $delta_y;
 	}
 	draw_line($x, $y, $x, $current_y, 'black', 0.4);
 }
-/*
-function draw_bubbles_per_ec($x, $y, $delta_x, $delta_y, $data, $sites, $ec, $taxas, $color, $bubble_scale){
+
+
+function draw_bubbles_per_ec($x, $y, $delta_x, $delta_y, $data, $sites, $ec, $tax_arr, $color, $bubble_scale){
 	$current_x = $x;
-	foreach($tax_arr as $tax){ 
-		draw_tax_column_by_metaomes_as_row($x, $y, $delta_y, $data, $sites, $ec, $tax, $color, $bubble_scale);
+	foreach($tax_arr as $tax => $value){ 
+		draw_tax_column_by_metaomes_as_row($current_x, $y, $delta_y, $data, $sites, $ec, $tax, $color, $bubble_scale);
 		$current_x += $delta_x;
 	}
 	draw_line($x, $y, $current_x, $y, 'black', 0.4);
+}
 
-}*/
 
 /*
 function clean_site_name($site) {
