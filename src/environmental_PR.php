@@ -26,7 +26,7 @@ function define_oxygen_layer($oxy_sites, $sites_counts){
         $oxygen = $oxy_sites[$sites][1];
         if($nitrite >= 0.45 && $oxygen <= 2.3) $elem = "anoxic";
         else if(!isset($nitrite) && $oxygen <= 2.3) $elem = "anoxic";
-        else if ($oxygen < 5.8) $elem = "low_oxygen";
+        else if ($oxygen < 5.8 && $elem !== "anoxic") $elem = "low_oxygen";
         else if($oxygen >= 150) $elem = "oxic";
         else $elem = "suboxic";
       } else $elem = "non_def";
@@ -61,4 +61,16 @@ function get_site_names_by_oxy_def($site_oxy_def, $def){
   return $site_oxy_list;      
 }
 
+function color_by_oxy_def($site_oxy_def){
+  $site_color = [];
+  $color = '';
+  foreach($site_oxy_def as $site => $def){
+    if ($def == 'oxic') $color = 'green';
+    else if ($def == 'suboxic') $color = 'blue';
+    else if ($def = 'low_oxygen') $color = "purple";
+    else if ($def = 'anoxic') $color = 'red';
+    else if ($def = 'non_def') $color = 'black';
+    $site_color[$site] = $color;
+  } return $site_color;
+}
 

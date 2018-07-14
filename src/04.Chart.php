@@ -180,5 +180,8 @@ function draw($x, $y) {
   $this->draw_bubble_metaomas($x + 100, $y);
 }
 
+
+
+
 }
 

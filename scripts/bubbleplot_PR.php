@@ -27,7 +27,7 @@ $mg_suboxic_list = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "suboxic");
 $mg_low_oxygen_list = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "low_oxygen");
 $mg_anoxic_list = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "anoxic");
 $mg_list_by_oxygen = array_merge($mg_oxic_list, $mg_suboxic_list,$mg_low_oxygen_list, $mg_anoxic_list);
-
+$color_list = color_by_oxy_def($mg_oxy_def_by_sites);
 
 
 $mg_bubbleplot = new Chart;
@@ -37,6 +37,12 @@ $mg_bubbleplot->delta_y = 12;
 $mg_bubbleplot->bubble_scale = 150000;
 $mg_bubbleplot->row_names = $mg_list_by_oxygen;
 $mg_bubbleplot->big_group = $ecs;
+$mg_bubbleplot->get_color = function($big_group, $row_name, $col_name) {
+  global $color_list;
+  return $color_list[$row_name];
+  //global $ec_colors;
+  //return $ec_colors[$big_group];
+};
 echo '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="1000" width="1500">';
 $mg_bubbleplot->draw(200, 200);
 
