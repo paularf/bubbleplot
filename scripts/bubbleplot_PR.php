@@ -1,5 +1,4 @@
 <?php
-namespace paularf\bubbleplot;
 require_once('../data/php/00.total_counts.php');
 require_once('../src/01.taxa_funcs.php');
 require_once('../src/environmental_PR.php');
@@ -20,16 +19,26 @@ $mg_ec_site_tax_data = flip_big_group_row_col_names($mg_site_ec_tax_relab);
 $mg_oxy_sites = load_oxy_sites();
 $mg_oxy_def_by_sites = define_oxygen_layer($mg_oxy_sites, $mg_site_ec_tax_relab);
 
+//$mg_list_by_oxygen_gradient = order_sites_by_oxygen_gradient($mg_oxy_sites, $mg_site_ec_tax_relab);
 
 //lista de metagenomas de acuerdo a la concentración de oxígeno, convertir esto en función y pasarlo a environmental_PR
 $mg_oxic_list = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "oxic");
 $mg_suboxic_list = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "suboxic");
+$mg_low_oxygen_list = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "low_oxygen");
 $mg_anoxic_list = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "anoxic");
-$mg_list_by_oxygen = array_merge($mg_oxic_list, $mg_suboxic_list, $mg_anoxic_list);
+$mg_list_by_oxygen = array_merge($mg_oxic_list, $mg_suboxic_list,$mg_low_oxygen_list, $mg_anoxic_list);
 
-//print_r($mg_ec_site_tax_data);
 
+
+$mg_bubbleplot = new Chart;
+$mg_bubbleplot->data = $mg_ec_site_tax_data;
+$mg_bubbleplot->delta_x = 15;
+$mg_bubbleplot->delta_y = 12;
+$mg_bubbleplot->bubble_scale = 150000;
+$mg_bubbleplot->row_names = $mg_list_by_oxygen;
+$mg_bubbleplot->big_group = $ecs;
 echo '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="1000" width="1500">';
+$mg_bubbleplot->draw(200, 200);
 
 
 echo '</svg>';

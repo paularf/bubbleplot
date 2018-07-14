@@ -24,7 +24,9 @@ function define_oxygen_layer($oxy_sites, $sites_counts){
       if (isset($oxy_sites[$sites])){ 
         $nitrite = $oxy_sites[$sites][0];
         $oxygen = $oxy_sites[$sites][1];
-        if($nitrite >= 0.45 && $oxygen <= 2) $elem = "anoxic";
+        if($nitrite >= 0.45 && $oxygen <= 2.3) $elem = "anoxic";
+        else if(!isset($nitrite) && $oxygen <= 2.3) $elem = "anoxic";
+        else if ($oxygen < 5.8) $elem = "low_oxygen";
         else if($oxygen >= 150) $elem = "oxic";
         else $elem = "suboxic";
       } else $elem = "non_def";
@@ -32,6 +34,24 @@ function define_oxygen_layer($oxy_sites, $sites_counts){
   }
   return $oxy_def;
 }
+/*function order_sites_by_oxygen_gradient($oxy_sites, $original_data){
+  $ordered_list = [];
+  $array_order = [];
+  foreach($original_data as $site => $data_arr){
+    if(isset($oxy_sites[$site])){
+      $oxygen = $oxy_sites[$site][0];
+      $array_order[$site] = $oxygen;
+  }
+} //print_r($array_order);
+  //$array_order = arsort($array_order, SORT_REGULAR);
+
+  foreach($array_order as $site => $oxygen){
+    $ordered_list[] = $site;
+    $max_oxygen = -10;
+    if($oxygen > $max_oxygen) 
+  }
+  return $ordered_list;
+}*/
 
 function get_site_names_by_oxy_def($site_oxy_def, $def){
   $site_oxy_list = [];  
@@ -42,25 +62,3 @@ function get_site_names_by_oxy_def($site_oxy_def, $def){
 }
 
 
-function draw_rect($x, $y, $width, $height, $color) {
-  printf("<rect x='$x' y='$y' width='$width' height='$height' style='fill:$color' />");
-  echo "\n";
-}
-
-
-function draw_variable($x, $y, $variables){
- $color = 0; 
-  foreach ($variables as $variable){
-   $color_ini = "hsl($color, 100%%, 50%%)";
-   draw_rect($x, $y, $variable, 4, $color_ini);
-   $y += 5;
-   $color += 360/count($variables) ;
- } 
-}
-
-function draw_variables_by_site($x, $y, $site_variables){
-  foreach ($site_variables as $variables){
-    draw_variable($x, $y, $variables);
-    $y += 10;
-  }
-}
