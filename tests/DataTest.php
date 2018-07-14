@@ -246,9 +246,44 @@ class DataTest extends \PHPUnit\Framework\TestCase {
 		$data_filtered = $data
 			->filter_by_rows($row_filter)
 			->filter_by_columns($col_filter);
-			
+
 		//$data_filtered_by_rows_and_cols = $data_filtered_by_rows->filter_by_columns($col_filter);
 		$this->assertEquals($expected_result, $data_filtered->data);
 
+	}
+
+	public function testGetTotalByColumn() {
+		$data = new Data;
+		$data->data = [
+			'G1' => [
+				'r1' => [
+					'c' => 2
+				],
+				'r3' => [
+					'c' => 5
+				]
+			],
+			'G2' => [
+				'r2' => [
+					'c' => 3
+				]
+			]
+		];
+
+		$this->assertEquals(7, $data->get_total_by_column('G1', 'c'));
+	}
+
+	public function testAddGroupFromFile() {
+		$data = new Data;
+		$data->add_group_from_file('g1', __DIR__ . '/test_file.data');
+
+		$expected = [
+			'g1' => [
+				'ec1' => [ 'tax1' => 1],
+				'ec2' => [ 'tax2' => 2],
+				'ec3' => [ 'tax3' => 3]
+			]
+		];
+		$this->assertEquals($expected, $data->data);
 	}
 }

@@ -3,7 +3,21 @@
 namespace paularf\bubbleplot;
 
 class Data {
-	public $data;
+	public $data = [];
+
+	function add_group_from_file($group_name, $filename) {
+		  $f = fopen($filename, "r");
+			  $taxa_counts = [];
+			  while ($line = trim(fgets($f))){
+			    $columns = explode("\t", $line);
+			    $ec_number = $columns[0];
+			    $taxa_name = $columns[1];
+			    $taxa_count= $columns[2];
+			    $taxa_counts[$ec_number][$taxa_name] = $taxa_count;
+			  }
+		fclose($f);
+		return $this->data[$group_name] = $taxa_counts;
+	}
 
 	function get_column_names() {
   		$result = [];
@@ -36,6 +50,15 @@ class Data {
     	}
     	else return 0;
 	}
+
+	function get_total_by_column($big_group, $col_name){
+  		$total = 0;
+  		foreach ($this->data[$big_group] as $row_name => $rows){
+    		$total += $this->get_value($big_group, $row_name, $col_name); 
+  		}
+  		return $total;
+	}
+
 
 	function filter_by_rows($filtered_rows) {
 		$new_data = [];

@@ -34,7 +34,7 @@ EOF;
 }
 
 function draw_row_names($x, $y){
-  foreach ($this->row_names as $row_name){ 
+  foreach ($this->data->get_row_names() as $row_name){ 
     $y += $this->delta_y;
     $row_name = $this->clean_site_name($row_name);
     $this->draw_text($x, $y, $row_name, 0, 10);
@@ -85,14 +85,6 @@ function draw_bubble_column_by_big_group_col_name($x, $y, $big_group, $col_name)
 }
 
 
-function get_total_by_column($big_group, $col_name){
-  $total = 0;
-  foreach ($this->row_names as $row_name){
-    $total += $this->get_value($big_group, $row_name, $col_name); //ojo
-  }
-  return $total;
-}
-
 function clean_site_name($site) {
   foreach ( $this->site_name_filters as $filter ) {
     $site = str_replace($filter, '', $site);
@@ -106,7 +98,7 @@ function draw_bubble_per_metaoma_zig_zag_names ($x, $y, $big_group, $is_up){
   $current_x = $x;
   $contador = 0;
   foreach ($this->column_names as $col_name){ 
-    $column_total = $this->get_total_by_column($big_group, $col_name);
+    $column_total = $this->data->get_total_by_column($big_group, $col_name);
     if ( $column_total == 0 ) continue;
     else {
       $this->draw_bubble_column_by_big_group_col_name($current_x, $y, $big_group, $col_name);

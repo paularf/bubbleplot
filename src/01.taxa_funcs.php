@@ -90,7 +90,17 @@ function get_rel_abs_from_ec_tax_name_tax_count_array($ec_taxa_counts) {
   }
   return $rel_abs;
 }
-
+function flip_big_group_row_col_names($array){
+  $r = [];
+  foreach($array as $site => $ec_tax_name_arr){
+    foreach ($ec_tax_name_arr as $ec => $tax_value_arr){
+      foreach ($tax_value_arr as $tax_name => $value){
+        $r[$ec][$site][$tax_name] = $value;
+      }
+    }
+  }
+  return $r;
+}
 function get_taxa_names($sites) {
   $result = [];
   foreach ( $sites as $ecs ) {

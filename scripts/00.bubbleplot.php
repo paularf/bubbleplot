@@ -17,19 +17,6 @@ foreach (glob("../data/tax_grouped/Mg_*.test.test.final_3.taxa") as $file){
     $sites_rel_ab_custom[$site] = get_relab_from_ec_tax_count_arr($taxa_counts, $mg_count_arr[$site]);
 }
 
-function flip_big_group_row_col_names($array){
-  $r = [];
-  foreach($array as $site => $ec_tax_name_arr){
-    foreach ($ec_tax_name_arr as $ec => $tax_value_arr){
-      foreach ($tax_value_arr as $tax_name => $value){
-        $r[$ec][$site][$tax_name] = $value;
-        //$r[$ec][$tax_name][$site] = $value;
-        //$r[$site][$ec]$tax_name = $value;
-      }
-    }
-  }
-  return $r;
-}
 
 $taxa_names = get_taxa_names($sites_rel_ab_custom);
 $oxy_sites = load_oxy_sites();
