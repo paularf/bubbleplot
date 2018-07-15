@@ -28,14 +28,17 @@ $mg_low_oxygen_list = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "low_oxyge
 $mg_anoxic_list = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "anoxic");
 $mg_list_by_oxygen = array_merge($mg_oxic_list, $mg_suboxic_list,$mg_low_oxygen_list, $mg_anoxic_list);
 $color_list = color_by_oxy_def($mg_oxy_def_by_sites);
+$test_r = get_site_names_by_depth($mg_list_by_oxygen);
+$test_s = order_sites_by_oxygen_gradient($mg_oxy_sites, $mg_site_ec_tax_relab);
 
+//print_r($test_r);
 
 $mg_bubbleplot = new Chart;
 $mg_bubbleplot->data = $mg_ec_site_tax_data;
 $mg_bubbleplot->delta_x = 15;
 $mg_bubbleplot->delta_y = 12;
 $mg_bubbleplot->bubble_scale = 150000;
-$mg_bubbleplot->row_names = $mg_list_by_oxygen;
+$mg_bubbleplot->row_names = $test_s;//$test_r;//$mg_list_by_oxygen;
 $mg_bubbleplot->big_group = $ecs;
 $mg_bubbleplot->get_color = function($big_group, $row_name, $col_name) {
   global $color_list;
