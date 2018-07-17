@@ -1,18 +1,20 @@
 <?php
 
 function make_ec_tax_count_arr($file, $ecs, $limit = 2) {
-  $f = fopen($file, "r");
   $taxa_counts = [];
-  while ($line = trim(fgets($f))){
-    $columns = explode("\t", $line);
-    $ec_number = $columns[0];
-    $taxa_name = $columns[1];
-    $taxa_count= $columns[2];
-    if ($taxa_count <= $limit) continue;
-    if (in_array($ec_number, $ecs))
-      $taxa_counts[$ec_number][$taxa_name] = $taxa_count;
+  foreach($ecs as $ec){
+    $f = fopen($file, "r");
+    while ($line = trim(fgets($f))){
+      $columns = explode("\t", $line);
+      $ec_number = $columns[0];
+      $taxa_name = $columns[1];
+      $taxa_count= $columns[2];
+      if ($taxa_count <= $limit) continue;
+      if ($ec == $ec_number)
+        $taxa_counts[$ec][$taxa_name] = $taxa_count;
+    }
+    fclose($f);
   }
-  fclose($f);
   return $taxa_counts;
 }
 
@@ -40,7 +42,7 @@ function make_site_ec_tax_relab_arr($files, $end_name, $ecs, $total_count_arr){
   $sites_rel_ab_custom = [];
   foreach ($files as $file){
     $site = basename($file, $end_name);
-    $taxa_counts = make_ec_tax_count_arr($file, $ecs, 5);
+    $taxa_counts = make_ec_tax_count_arr($file, $ecs, 6);
     if ( isset($total_count_arr[$site]))
       $sites_rel_ab_custom[$site] = get_relab_from_ec_tax_count_arr($taxa_counts, $total_count_arr[$site]);
   }

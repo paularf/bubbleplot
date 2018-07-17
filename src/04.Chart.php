@@ -71,7 +71,7 @@ function clean_site_name($site) {
   foreach ( $this->site_name_filters as $filter ) {
     $site = str_replace($filter, '', $site);
   }
-  //$site = str_replace('_', ' ', $site);
+  $site = str_replace('_', ' ', $site);
   return $site;
 }
 function draw_col_text($x, $y, $texts){ //no se usa

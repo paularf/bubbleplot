@@ -15,6 +15,23 @@ function load_oxy_sites($filename = '../data/Tax_grouped/Mg_ambientales.txt') {
   fclose($file);
   return $oxy_sites;
 }
+function define_oxygen_layer($oxy_sites, $sites_counts){
+  $oxy_def = [];
+  foreach ($sites_counts as $sites => $counts){
+      $elem = [ 'value' => null, 'color' => 'black' ];
+      if (isset($oxy_sites[$sites])){
+        $o = $oxy_sites[$sites];
+        if ($o <= 5) $elem['color'] = "red"; //anoxico
+        else if ($o >= 150) $elem['color'] = "green"; //oxico
+        else $elem['color'] = "blue"; //oxiclina
+        
+        $elem['value'] = $o; 
+      }
+      $oxy_def[$sites] = $elem;
+  }
+  return $oxy_def;
+}
+
 function load_oxy_sites_r($filename = '../data/Tax_grouped/Mg_ambientales.txt') {
   $oxy_sites = [];
   $file = fopen($filename, 'r');
@@ -48,22 +65,7 @@ function define_oxygen_layer_r($oxy_sites, $sites_counts){
   }
   return $oxy_def;
 }
-function define_oxygen_layer($oxy_sites, $sites_counts){
-  $oxy_def = [];
-  foreach ($sites_counts as $sites => $counts){
-      $elem = [ 'value' => null, 'color' => 'black' ];
-      if (isset($oxy_sites[$sites])){
-        $o = $oxy_sites[$sites];
-        if ($o <= 5) $elem['color'] = "red"; //anoxico
-        else if ($o >= 150) $elem['color'] = "green"; //oxico
-        else $elem['color'] = "blue"; //oxiclina
-        
-        $elem['value'] = $o; 
-      }
-      $oxy_def[$sites] = $elem;
-  }
-  return $oxy_def;
-}
+
 
 function get_site_names_by_oxy_def($oxy_colors, $color){
   $site_oxy_list = [];  
