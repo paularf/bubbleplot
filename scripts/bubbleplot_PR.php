@@ -14,8 +14,8 @@ $end_name = ".test.test.final_3.taxa";
 
 //abundancia relativa y rearreglo de las filas y las columnas para probar dibujo
 $mg_site_ec_tax_relab = make_site_ec_tax_relab_arr($files, $end_name, $ecs, $mg_count_arr);
-var_dump(get_min($mg_site_ec_tax_relab));
-var_dump(get_max($mg_site_ec_tax_relab));
+//var_dump(get_min($mg_site_ec_tax_relab));
+//var_dump(get_max($mg_site_ec_tax_relab));
 
 $mg_ec_site_tax_data = flip_big_group_row_col_names($mg_site_ec_tax_relab);
 //oxigeno
