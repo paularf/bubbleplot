@@ -39,13 +39,13 @@ function draw_scale_leyend($x, $y, $scale){
   draw_text($current_x + 30, $y + 5, 'Up oxycline', 0, 12);
 
   draw_bubble($current_x + 20, $y + 20, 6, 'purple'); 
-  draw_text($current_x + 30, $y + 25, 'Low oxygen interfase', 0, 12);
+  draw_text($current_x + 30, $y + 25, 'Low oxygen concentration', 0, 12);
 
   draw_bubble($current_x + 20, $y + 40, 6, 'red'); 
   draw_text($current_x + 30, $y + 45, 'Anoxic', 0, 12);
 
   draw_bubble($current_x + 20, $y + 60, 6, '#3602f4'); 
-  draw_text($current_x + 30, $y + 65, 'Down oxycline', 0, 12);
+  draw_text($current_x + 30, $y + 65, 'Low oxycline', 0, 12);
 }
 
 function get_max($data){

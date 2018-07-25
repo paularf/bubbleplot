@@ -39,9 +39,9 @@
      inkscape:window-height="687"
      id="namedview662"
      showgrid="false"
-     inkscape:zoom="0.6742529"
-     inkscape:cx="600.09253"
-     inkscape:cy="786.8645"
+     inkscape:zoom="1.3169002"
+     inkscape:cx="1013.5635"
+     inkscape:cy="416.29731"
      inkscape:window-x="0"
      inkscape:window-y="1"
      inkscape:window-maximized="1"
@@ -2595,7 +2595,7 @@
      id="text642"
      x="1158"
      y="581"
-     style="font-weight:normal;font-size:12px;font-family:Verdana;fill:#000000">Low oxygen interfase</text>
+     style="font-weight:normal;font-size:12px;font-family:Verdana;fill:#000000">Low oxygen concentration</text>
   <circle
      cx="1148"
      cy="596"
@@ -2621,7 +2621,7 @@
      id="text650"
      x="1158"
      y="621"
-     style="font-weight:normal;font-size:12px;font-family:Verdana;fill:#000000">Down oxycline</text>
+     style="font-weight:normal;font-size:12px;font-family:Verdana;fill:#000000">Low oxycline</text>
   <text
      font-size="8"
      font-weight="bold"

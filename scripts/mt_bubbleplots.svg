@@ -1,0 +1,793 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.1"
+   height="1000"
+   width="1500"
+   id="svg2"
+   inkscape:version="0.91 r13725"
+   sodipodi:docname="mt_bubbleplots.svg"
+   inkscape:export-filename="/Users/paularuizfernandez/Desktop/Datos_Tesis/Composer_test/scripts/mt_test.png"
+   inkscape:export-xdpi="195.9648"
+   inkscape:export-ydpi="195.9648">
+  <metadata
+     id="metadata190">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs188" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="725"
+     inkscape:window-height="480"
+     id="namedview186"
+     showgrid="false"
+     inkscape:zoom="0.23653646"
+     inkscape:cx="187.71882"
+     inkscape:cy="466.17858"
+     inkscape:window-x="0"
+     inkscape:window-y="23"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg2" />
+  <text
+     font-family="Verdana"
+     transform="translate(60, 204)rotate(-0)"
+     font-size="10"
+     font-weight="normal"
+     fill="black"
+     id="text4">
+           ETNP OMZoMBiE 2013 St6 30m 1.6-0.2
+      </text>
+  <text
+     font-family="Verdana"
+     transform="translate(60, 216)rotate(-0)"
+     font-size="10"
+     font-weight="normal"
+     fill="black"
+     id="text6">
+           ETNP OMZoMBiE 2013 St6 30m 30-1.6
+      </text>
+  <text
+     font-family="Verdana"
+     transform="translate(60, 228)rotate(-0)"
+     font-size="10"
+     font-weight="normal"
+     fill="black"
+     id="text8">
+           ETSP MOOMZ1 50m
+      </text>
+  <text
+     font-family="Verdana"
+     transform="translate(60, 240)rotate(-0)"
+     font-size="10"
+     font-weight="normal"
+     fill="black"
+     id="text10">
+           ETSP MOOMZ1 85m
+      </text>
+  <text
+     font-family="Verdana"
+     transform="translate(60, 252)rotate(-0)"
+     font-size="10"
+     font-weight="normal"
+     fill="black"
+     id="text12">
+           ETNP OMZoMBiE 2013 St6 85m 1.6-0.2
+      </text>
+  <text
+     font-family="Verdana"
+     transform="translate(60, 264)rotate(-0)"
+     font-size="10"
+     font-weight="normal"
+     fill="black"
+     id="text14">
+           ETNP OMZoMBiE 2013 St6 85m 30-1.6
+      </text>
+  <text
+     font-family="Verdana"
+     transform="translate(60, 276)rotate(-0)"
+     font-size="10"
+     font-weight="normal"
+     fill="black"
+     id="text16">
+           ETSP MOOMZ1 110m
+      </text>
+  <text
+     font-family="Verdana"
+     transform="translate(60, 288)rotate(-0)"
+     font-size="10"
+     font-weight="normal"
+     fill="black"
+     id="text18">
+           ETNP OMZoMBiE 2013 St6 100m 1.6-0.2
+      </text>
+  <text
+     font-family="Verdana"
+     transform="translate(60, 300)rotate(-0)"
+     font-size="10"
+     font-weight="normal"
+     fill="black"
+     id="text20">
+           ETNP OMZoMBiE 2013 St6 100m 30-1.6
+      </text>
+  <text
+     font-family="Verdana"
+     transform="translate(60, 312)rotate(-0)"
+     font-size="10"
+     font-weight="normal"
+     fill="black"
+     id="text22">
+           ETNP OMZoMBiE 2013 St6 125m 1.6-0.2
+      </text>
+  <text
+     font-family="Verdana"
+     transform="translate(60, 324)rotate(-0)"
+     font-size="10"
+     font-weight="normal"
+     fill="black"
+     id="text24">
+           ETNP OMZoMBiE 2013 St6 125m 30-1.6
+      </text>
+  <text
+     font-family="Verdana"
+     transform="translate(60, 336)rotate(-0)"
+     font-size="10"
+     font-weight="normal"
+     fill="black"
+     id="text26">
+           ETNP OMZoMBiE 2013 St6 300m 1.6-0.2
+      </text>
+  <text
+     font-family="Verdana"
+     transform="translate(60, 348)rotate(-0)"
+     font-size="10"
+     font-weight="normal"
+     fill="black"
+     id="text28">
+           ETNP OMZoMBiE 2013 St6 300m 30-1.6
+      </text>
+  <text
+     font-family="Verdana"
+     transform="translate(60, 360)rotate(-0)"
+     font-size="10"
+     font-weight="normal"
+     fill="black"
+     id="text30">
+           ETSP MOOMZ1 200m
+      </text>
+  <text
+     font-family="Verdana"
+     transform="translate(60, 372)rotate(-0)"
+     font-size="10"
+     font-weight="normal"
+     fill="black"
+     id="text32">
+           ETSP MOOMZ3 st3 75m
+      </text>
+  <text
+     font-family="Verdana"
+     transform="translate(60, 384)rotate(-0)"
+     font-size="10"
+     font-weight="normal"
+     fill="black"
+     id="text34">
+           ETSP MOOMZ3 st5 85m
+      </text>
+  <text
+     font-family="Verdana"
+     transform="translate(300, 190)rotate(-60)"
+     font-size="8"
+     font-weight="normal"
+     fill="black"
+     id="text36">
+           Cyanobacterias
+      </text>
+  <ellipse
+     cx="300.000000"
+     cy="224.000000"
+     rx="21.353270"
+     ry="21.353270"
+     fill-opacity="0.2"
+     style="fill:green;stroke:green;stroke-width:1"
+     id="ellipse38" />
+  <ellipse
+     cx="300.000000"
+     cy="248.000000"
+     rx="9.489461"
+     ry="9.489461"
+     fill-opacity="0.2"
+     style="fill:purple;stroke:purple;stroke-width:1"
+     id="ellipse40" />
+  <ellipse
+     cx="300.000000"
+     cy="260.000000"
+     rx="3.916630"
+     ry="3.916630"
+     fill-opacity="0.2"
+     style="fill:purple;stroke:purple;stroke-width:1"
+     id="ellipse42" />
+  <ellipse
+     cx="300.000000"
+     cy="284.000000"
+     rx="2.432720"
+     ry="2.432720"
+     fill-opacity="0.2"
+     style="fill:red;stroke:red;stroke-width:1"
+     id="ellipse44" />
+  <ellipse
+     cx="300.000000"
+     cy="296.000000"
+     rx="0.929222"
+     ry="0.929222"
+     fill-opacity="0.2"
+     style="fill:red;stroke:red;stroke-width:1"
+     id="ellipse46" />
+  <line
+     x1="300.000000"
+     y1="200.000000"
+     x2="300.000000"
+     y2="380.000000"
+     style="stroke:black;stroke-width:0.100000"
+     id="line48" />
+  <text
+     font-family="Verdana"
+     transform="translate(315, 190)rotate(-60)"
+     font-size="8"
+     font-weight="normal"
+     fill="black"
+     id="text50">
+           uncultured marine phototrophic eukaryote
+      </text>
+  <ellipse
+     cx="315.000000"
+     cy="212.000000"
+     rx="1.318108"
+     ry="1.318108"
+     fill-opacity="0.2"
+     style="fill:green;stroke:green;stroke-width:1"
+     id="ellipse52" />
+  <line
+     x1="315.000000"
+     y1="200.000000"
+     x2="315.000000"
+     y2="380.000000"
+     style="stroke:black;stroke-width:0.100000"
+     id="line54" />
+  <text
+     font-family="Verdana"
+     transform="translate(330, 190)rotate(-60)"
+     font-size="8"
+     font-weight="normal"
+     fill="black"
+     id="text56">
+           Chattonella marina var. marina
+      </text>
+  <ellipse
+     cx="330.000000"
+     cy="212.000000"
+     rx="0.838796"
+     ry="0.838796"
+     fill-opacity="0.2"
+     style="fill:green;stroke:green;stroke-width:1"
+     id="ellipse58" />
+  <line
+     x1="330.000000"
+     y1="200.000000"
+     x2="330.000000"
+     y2="380.000000"
+     style="stroke:black;stroke-width:0.100000"
+     id="line60" />
+  <text
+     font-family="Verdana"
+     transform="translate(345, 190)rotate(-60)"
+     font-size="8"
+     font-weight="normal"
+     fill="black"
+     id="text62">
+           Sulfur-oxidizers
+      </text>
+  <ellipse
+     cx="345.000000"
+     cy="272.000000"
+     rx="4.033979"
+     ry="4.033979"
+     fill-opacity="0.2"
+     style="fill:purple;stroke:purple;stroke-width:1"
+     id="ellipse64" />
+  <ellipse
+     cx="345.000000"
+     cy="356.000000"
+     rx="4.419033"
+     ry="4.419033"
+     fill-opacity="0.2"
+     style="fill:red;stroke:red;stroke-width:1"
+     id="ellipse66" />
+  <ellipse
+     cx="345.000000"
+     cy="368.000000"
+     rx="1.883548"
+     ry="1.883548"
+     fill-opacity="0.2"
+     style="fill:red;stroke:red;stroke-width:1"
+     id="ellipse68" />
+  <line
+     x1="345.000000"
+     y1="200.000000"
+     x2="345.000000"
+     y2="380.000000"
+     style="stroke:black;stroke-width:0.100000"
+     id="line70" />
+  <text
+     font-family="Verdana"
+     transform="translate(360, 190)rotate(-60)"
+     font-size="8"
+     font-weight="normal"
+     fill="black"
+     id="text72">
+           Other
+      </text>
+  <ellipse
+     cx="360.000000"
+     cy="224.000000"
+     rx="10.281204"
+     ry="10.281204"
+     fill-opacity="0.2"
+     style="fill:green;stroke:green;stroke-width:1"
+     id="ellipse74" />
+  <line
+     x1="360.000000"
+     y1="200.000000"
+     x2="360.000000"
+     y2="380.000000"
+     style="stroke:black;stroke-width:0.100000"
+     id="line76" />
+  <text
+     font-family="Verdana"
+     transform="translate(292, 180)rotate(-60)"
+     font-size="8"
+     font-weight="bold"
+     fill="black"
+     id="text78">
+           4.1.1.39
+      </text>
+  <text
+     font-family="Verdana"
+     transform="translate(390, 190)rotate(-60)"
+     font-size="8"
+     font-weight="normal"
+     fill="black"
+     id="text80">
+           Candidatus Scalindua brodae
+      </text>
+  <ellipse
+     cx="390.000000"
+     cy="308.000000"
+     rx="0.616032"
+     ry="0.616032"
+     fill-opacity="0.2"
+     style="fill:red;stroke:red;stroke-width:1"
+     id="ellipse82" />
+  <ellipse
+     cx="390.000000"
+     cy="356.000000"
+     rx="4.419033"
+     ry="4.419033"
+     fill-opacity="0.2"
+     style="fill:red;stroke:red;stroke-width:1"
+     id="ellipse84" />
+  <ellipse
+     cx="390.000000"
+     cy="368.000000"
+     rx="2.009118"
+     ry="2.009118"
+     fill-opacity="0.2"
+     style="fill:red;stroke:red;stroke-width:1"
+     id="ellipse86" />
+  <ellipse
+     cx="390.000000"
+     cy="380.000000"
+     rx="2.072350"
+     ry="2.072350"
+     fill-opacity="0.2"
+     style="fill:red;stroke:red;stroke-width:1"
+     id="ellipse88" />
+  <line
+     x1="390.000000"
+     y1="200.000000"
+     x2="390.000000"
+     y2="380.000000"
+     style="stroke:black;stroke-width:0.100000"
+     id="line90" />
+  <text
+     font-family="Verdana"
+     transform="translate(382, 180)rotate(-60)"
+     font-size="8"
+     font-weight="bold"
+     fill="black"
+     id="text92">
+           2.3.1.169
+      </text>
+  <text
+     font-family="Verdana"
+     transform="translate(420, 190)rotate(-60)"
+     font-size="8"
+     font-weight="normal"
+     fill="black"
+     id="text94">
+           Thaumarchaeote - 3HP/4HB
+      </text>
+  <ellipse
+     cx="420.000000"
+     cy="224.000000"
+     rx="7.513188"
+     ry="7.513188"
+     fill-opacity="0.2"
+     style="fill:green;stroke:green;stroke-width:1"
+     id="ellipse96" />
+  <ellipse
+     cx="420.000000"
+     cy="272.000000"
+     rx="3.765047"
+     ry="3.765047"
+     fill-opacity="0.2"
+     style="fill:purple;stroke:purple;stroke-width:1"
+     id="ellipse98" />
+  <ellipse
+     cx="420.000000"
+     cy="368.000000"
+     rx="0.878989"
+     ry="0.878989"
+     fill-opacity="0.2"
+     style="fill:red;stroke:red;stroke-width:1"
+     id="ellipse100" />
+  <line
+     x1="420.000000"
+     y1="200.000000"
+     x2="420.000000"
+     y2="380.000000"
+     style="stroke:black;stroke-width:0.100000"
+     id="line102" />
+  <text
+     font-family="Verdana"
+     transform="translate(412, 180)rotate(-60)"
+     font-size="8"
+     font-weight="bold"
+     fill="black"
+     id="text104">
+           4.2.1.120
+      </text>
+  <text
+     font-family="Verdana"
+     transform="translate(450, 190)rotate(-60)"
+     font-size="8"
+     font-weight="normal"
+     fill="black"
+     id="text106">
+           Nitrospina gracilis
+      </text>
+  <ellipse
+     cx="450.000000"
+     cy="368.000000"
+     rx="2.636967"
+     ry="2.636967"
+     fill-opacity="0.2"
+     style="fill:red;stroke:red;stroke-width:1"
+     id="ellipse108" />
+  <line
+     x1="450.000000"
+     y1="200.000000"
+     x2="450.000000"
+     y2="380.000000"
+     style="stroke:black;stroke-width:0.100000"
+     id="line110" />
+  <text
+     font-family="Verdana"
+     transform="translate(442, 180)rotate(-60)"
+     font-size="8"
+     font-weight="bold"
+     fill="black"
+     id="text112">
+           6.2.1.18
+      </text>
+  <line
+     x1="300.000000"
+     y1="200.000000"
+     x2="450.000000"
+     y2="200.000000"
+     style="stroke:black;stroke-width:0.100000"
+     id="line114" />
+  <line
+     x1="300.000000"
+     y1="212.000000"
+     x2="450.000000"
+     y2="212.000000"
+     style="stroke:black;stroke-width:0.100000"
+     id="line116" />
+  <line
+     x1="300.000000"
+     y1="224.000000"
+     x2="450.000000"
+     y2="224.000000"
+     style="stroke:black;stroke-width:0.100000"
+     id="line118" />
+  <line
+     x1="300.000000"
+     y1="236.000000"
+     x2="450.000000"
+     y2="236.000000"
+     style="stroke:black;stroke-width:0.100000"
+     id="line120" />
+  <line
+     x1="300.000000"
+     y1="248.000000"
+     x2="450.000000"
+     y2="248.000000"
+     style="stroke:black;stroke-width:0.100000"
+     id="line122" />
+  <line
+     x1="300.000000"
+     y1="260.000000"
+     x2="450.000000"
+     y2="260.000000"
+     style="stroke:black;stroke-width:0.100000"
+     id="line124" />
+  <line
+     x1="300.000000"
+     y1="272.000000"
+     x2="450.000000"
+     y2="272.000000"
+     style="stroke:black;stroke-width:0.100000"
+     id="line126" />
+  <line
+     x1="300.000000"
+     y1="284.000000"
+     x2="450.000000"
+     y2="284.000000"
+     style="stroke:black;stroke-width:0.100000"
+     id="line128" />
+  <line
+     x1="300.000000"
+     y1="296.000000"
+     x2="450.000000"
+     y2="296.000000"
+     style="stroke:black;stroke-width:0.100000"
+     id="line130" />
+  <line
+     x1="300.000000"
+     y1="308.000000"
+     x2="450.000000"
+     y2="308.000000"
+     style="stroke:black;stroke-width:0.100000"
+     id="line132" />
+  <line
+     x1="300.000000"
+     y1="320.000000"
+     x2="450.000000"
+     y2="320.000000"
+     style="stroke:black;stroke-width:0.100000"
+     id="line134" />
+  <line
+     x1="300.000000"
+     y1="332.000000"
+     x2="450.000000"
+     y2="332.000000"
+     style="stroke:black;stroke-width:0.100000"
+     id="line136" />
+  <line
+     x1="300.000000"
+     y1="344.000000"
+     x2="450.000000"
+     y2="344.000000"
+     style="stroke:black;stroke-width:0.100000"
+     id="line138" />
+  <line
+     x1="300.000000"
+     y1="356.000000"
+     x2="450.000000"
+     y2="356.000000"
+     style="stroke:black;stroke-width:0.100000"
+     id="line140" />
+  <line
+     x1="300.000000"
+     y1="368.000000"
+     x2="450.000000"
+     y2="368.000000"
+     style="stroke:black;stroke-width:0.100000"
+     id="line142" />
+  <line
+     x1="300.000000"
+     y1="380.000000"
+     x2="450.000000"
+     y2="380.000000"
+     style="stroke:black;stroke-width:0.100000"
+     id="line144" />
+  <ellipse
+     cx="300.000000"
+     cy="415.000000"
+     rx="0.022500"
+     ry="0.022500"
+     fill-opacity="0.2"
+     style="fill:#4e4f51;stroke:#4e4f51;stroke-width:1"
+     id="ellipse146" />
+  <ellipse
+     cx="350.000000"
+     cy="415.000000"
+     rx="2.250000"
+     ry="2.250000"
+     fill-opacity="0.2"
+     style="fill:#4e4f51;stroke:#4e4f51;stroke-width:1"
+     id="ellipse148" />
+  <ellipse
+     cx="400.000000"
+     cy="415.000000"
+     rx="22.500000"
+     ry="22.500000"
+     fill-opacity="0.2"
+     style="fill:#4e4f51;stroke:#4e4f51;stroke-width:1"
+     id="ellipse150" />
+  <ellipse
+     cx="450.000000"
+     cy="415.000000"
+     rx="30.000000"
+     ry="30.000000"
+     fill-opacity="0.2"
+     style="fill:#4e4f51;stroke:#4e4f51;stroke-width:1"
+     id="ellipse152" />
+  <line
+     x1="300.000000"
+     y1="415.000000"
+     x2="500.000000"
+     y2="415.000000"
+     style="stroke:black;stroke-width:0.200000"
+     id="line154" />
+  <ellipse
+     cx="520.000000"
+     cy="365.000000"
+     rx="6.000000"
+     ry="6.000000"
+     fill-opacity="0.2"
+     style="fill:green;stroke:green;stroke-width:1"
+     id="ellipse156" />
+  <text
+     font-family="Verdana"
+     transform="translate(530, 370)rotate(-0)"
+     font-size="12"
+     font-weight="normal"
+     fill="black"
+     id="text158">
+           Oxic
+      </text>
+  <ellipse
+     cx="520.000000"
+     cy="385.000000"
+     rx="6.000000"
+     ry="6.000000"
+     fill-opacity="0.2"
+     style="fill:blue;stroke:blue;stroke-width:1"
+     id="ellipse160" />
+  <text
+     font-family="Verdana"
+     transform="translate(530, 390)rotate(-0)"
+     font-size="12"
+     font-weight="normal"
+     fill="black"
+     id="text162">
+           Up oxycline
+      </text>
+  <ellipse
+     cx="520.000000"
+     cy="405.000000"
+     rx="6.000000"
+     ry="6.000000"
+     fill-opacity="0.2"
+     style="fill:purple;stroke:purple;stroke-width:1"
+     id="ellipse164" />
+  <text
+     font-family="Verdana"
+     transform="translate(530, 410)rotate(-0)"
+     font-size="12"
+     font-weight="normal"
+     fill="black"
+     id="text166">
+           Low oxygen concentration
+      </text>
+  <ellipse
+     cx="520.000000"
+     cy="425.000000"
+     rx="6.000000"
+     ry="6.000000"
+     fill-opacity="0.2"
+     style="fill:red;stroke:red;stroke-width:1"
+     id="ellipse168" />
+  <text
+     font-family="Verdana"
+     transform="translate(530, 430)rotate(-0)"
+     font-size="12"
+     font-weight="normal"
+     fill="black"
+     id="text170">
+           Anoxic
+      </text>
+  <ellipse
+     cx="520.000000"
+     cy="445.000000"
+     rx="6.000000"
+     ry="6.000000"
+     fill-opacity="0.2"
+     style="fill:#3602f4;stroke:#3602f4;stroke-width:1"
+     id="ellipse172" />
+  <text
+     font-family="Verdana"
+     transform="translate(530, 450)rotate(-0)"
+     font-size="12"
+     font-weight="normal"
+     fill="black"
+     id="text174">
+           Low oxycline
+      </text>
+  <text
+     font-family="Verdana"
+     transform="translate(285, 443)rotate(-0)"
+     font-size="8"
+     font-weight="bold"
+     fill="black"
+     id="text176">
+           Relative abundance per metagenome
+      </text>
+  <text
+     font-family="Verdana"
+     transform="translate(285, 433)rotate(-0)"
+     font-size="8"
+     font-weight="normal"
+     fill="black"
+     id="text178">
+           1.50e-7
+      </text>
+  <text
+     font-family="Verdana"
+     transform="translate(335, 433)rotate(-0)"
+     font-size="8"
+     font-weight="normal"
+     fill="black"
+     id="text180">
+           1.50e-5
+      </text>
+  <text
+     font-family="Verdana"
+     transform="translate(385, 433)rotate(-0)"
+     font-size="8"
+     font-weight="normal"
+     fill="black"
+     id="text182">
+           1.50e-4
+      </text>
+  <text
+     font-family="Verdana"
+     transform="translate(435, 433)rotate(-0)"
+     font-size="8"
+     font-weight="normal"
+     fill="black"
+     id="text184">
+           2.00e-4
+      </text>
+</svg>

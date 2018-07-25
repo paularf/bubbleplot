@@ -7,13 +7,13 @@ require_once('../src/leyend_PR.php');
 
 $ecs = ["4.1.1.39", "2.3.1.169", "4.2.1.120", "6.2.1.40", "6.2.1.36", "1.3.1.84", "4.1.3.46", "1.2.1.75", "5.4.1.3", "4.2.1.153", "6.2.1.18"];
 
-$files = glob("../data/tax_grouped/Mg_*.test.test.final_3.taxa");
+$mg_files = glob("../data/tax_grouped/Mg_*.test.test.final_3.taxa");
 $end_name = ".test.test.final_3.taxa";
 
 //**metagenomes
 
 //abundancia relativa y rearreglo de las filas y las columnas para probar dibujo
-$mg_site_ec_tax_relab = make_site_ec_tax_relab_arr($files, $end_name, $ecs, $mg_count_arr);
+$mg_site_ec_tax_relab = make_site_ec_tax_relab_arr($mg_files, $end_name, $ecs, $mg_count_arr);
 //var_dump(get_min($mg_site_ec_tax_relab));
 //var_dump(get_max($mg_site_ec_tax_relab));
 
@@ -44,7 +44,7 @@ $test_s = order_sites_by_oxygen_gradient($mg_oxy_sites, $mg_site_ec_tax_relab);
 
 //print_r($test_s);
 //$temp_sites_arr = ""
-$leyend_scale = [ 1.5e-7, 1.5e-5, 1.5e-4, 2.5e-4];
+$leyend_scale = [ 1.5e-7, 1.5e-5, 1.5e-4, 2.0e-4];
 $scientific_notation = [];
 foreach ($leyend_scale as $value){
   $scient = formatScientific($value);
@@ -65,9 +65,50 @@ $mg_bubbleplot->get_color = function($big_group, $row_name, $col_name) {
   //global $ec_colors;
   //return $ec_colors[$big_group];
 };
+
+//***Metatranscriptomas
+
+$mt_files = glob("../data/tax_grouped/Mt_*.test.test.final_3.taxa");
+$mt_site_ec_tax_relab = make_site_ec_tax_relab_arr($mt_files, $end_name, $ecs, $mt_count_arr);
+
+$mt_ec_site_tax_data = flip_big_group_row_col_names($mt_site_ec_tax_relab);
+//oxigeno
+$mt_oxy_sites = load_oxy_sites('../data/Tax_grouped/Mt_ambientales.txt');
+$mt_oxy_def_by_sites = define_oxygen_layer($mt_oxy_sites, $mt_site_ec_tax_relab);
+
+$mt_oxic_list = get_site_names_by_oxy_def($mt_oxy_def_by_sites, "oxic");
+$mt_up_oxycline_list = get_site_names_by_oxy_def($mt_oxy_def_by_sites, "up_oxycline");
+$mt_low_oxygen_list = get_site_names_by_oxy_def($mt_oxy_def_by_sites, "low_oxygen");
+$mt_anoxic_list = get_site_names_by_oxy_def($mt_oxy_def_by_sites, "anoxic");
+$mt_low_down_oxycline_list = get_site_names_by_oxy_def($mt_oxy_def_by_sites, "low_down_oxycline");
+$mt_down_oxycline_list = get_site_names_by_oxy_def($mt_oxy_def_by_sites, "down_oxycline");
+
+$mt_list_by_oxygen = array_merge($mt_oxic_list, $mt_up_oxycline_list,$mt_low_oxygen_list, $mt_anoxic_list, $mt_low_down_oxycline_list, $mt_down_oxycline_list);
+
+$mt_color_list = color_by_oxy_def($mt_oxy_def_by_sites);
+
+$mt_bubbleplot = new Chart;
+$mt_bubbleplot->data = $mt_ec_site_tax_data;
+$mt_bubbleplot->site_name_filters = ['Mt_', '_cDNA_454', '_cDNA_IluMs', '_cDNA_IluMS', '_454', 'IT', 'PA5', 'PA2'];
+$mt_bubbleplot->delta_x = 15;
+$mt_bubbleplot->delta_y = 12;
+$mt_bubbleplot->bubble_scale = 150000;
+$mt_bubbleplot->row_names = $mt_list_by_oxygen;
+$mt_bubbleplot->big_group = $ecs;
+$mt_bubbleplot->get_color = function($big_group, $row_name, $col_name) {
+  global $mt_color_list;
+  return $mt_color_list[$row_name];
+};
+
+
+
+
 echo '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="1000" width="1500">';
-$mg_bubbleplot->draw(200, 200);
-draw_leyend (700, 640, $leyend_scale, $scientific_notation);
+//$mg_bubbleplot->draw(200, 200);
+//draw_leyend (700, 640, $leyend_scale, $scientific_notation);
+
+$mt_bubbleplot->draw(200, 200);
+draw_leyend (300, 385, $leyend_scale, $scientific_notation);
 
 
 
