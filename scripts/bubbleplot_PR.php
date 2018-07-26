@@ -26,15 +26,11 @@ $mg_oxy_def_by_sites = define_oxygen_layer($mg_oxy_sites, $mg_site_ec_tax_relab)
 
 //lista de metagenomas de acuerdo a la concentración de oxígeno, convertir esto en función y pasarlo a environmental_PR
 $mg_oxic_list = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "oxic");
-//print_r($mg_oxy_def_by_sites);
-//print_r(order_sites_by_def_and_oxy($mg_oxy_sites, $mg_oxy_def_by_sites));
 $mg_up_oxycline_list = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "up_oxycline");
 $mg_low_oxygen_list = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "low_oxygen");
 $mg_anoxic_list = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "anoxic");
 $low_down_oxycline_list = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "low_down_oxycline");
 $mg_down_oxycline_list = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "down_oxycline");
-//print_r($mg_oxy_def_by_sites);
-
 $mg_list_by_oxygen = array_merge($mg_oxic_list, $mg_up_oxycline_list,$mg_low_oxygen_list, $mg_anoxic_list, $low_down_oxycline_list, $mg_down_oxycline_list);
 $color_list = color_by_oxy_def($mg_oxy_def_by_sites);
 $test = order_site_list_by_oxygen_gradient($mg_oxy_def_by_sites, $mg_oxic_list);
