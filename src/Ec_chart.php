@@ -123,6 +123,7 @@ function get_total_by_column($col_name){
 
 function draw_bubble_metaomes($x, $y){
   $current_x = $x;
+  $current_y = $y;
   $contador = 0;
   foreach ($this->column_names as $col_name){ 
     $column_total = $this->get_total_by_column($col_name);
@@ -130,25 +131,14 @@ function draw_bubble_metaomes($x, $y){
     else {
       $this->draw_bubble_column_by_col_name($current_x, $y, $col_name);
       $current_x += $this->delta_x;
-      $contador += 1;
     }
   }
-}
-/*
-function draw_bubble_metaomas($x, $y){
-  $current_y = $y;
-  $current_x = $x;
-  $is_up = true;
-  foreach ($this->data as $big_group => $row_col_array){
-    $contador = $this->draw_bubble_per_big_group($current_x, $current_y, $big_group);
-    $current_x += $this->delta_x * ($contador + 1);
-  }
-  foreach ($this->row_names as $row_name){
-    $this->draw_line($x, $current_y, $current_x - 2*$this->delta_x, $current_y, 'black', 0.1);
+  foreach($this->row_names as $row_name){
+    $this->draw_line($x, $current_y, $current_x - $this->delta_x, $current_y, 'black', 0.1);
     $current_y += $this->delta_y;
-  }  
+    }
 }
-*/
+
 function draw($x, $y) {
   if ( empty($this->row_names) ) {
     $this->row_names = $this->get_row_names();

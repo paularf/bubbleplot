@@ -1,6 +1,6 @@
 <?php
 
-function make_ec_count_arr($file, $ecs, $limit = 2) {
+function make_ec_count_arr($file, $ecs, $limit) {
   $ec_counts = [];
   foreach($ecs as $ec){
     $f = fopen($file, "r");
@@ -9,7 +9,7 @@ function make_ec_count_arr($file, $ecs, $limit = 2) {
       $ec_number = $columns[0];
       $taxa_count = $columns[1];
       if ($taxa_count <= $limit) continue;
-      if ($ec == $ec_number)
+      if ($ec === $ec_number)
         $ec_counts[$ec] = $taxa_count;
     }
     fclose($f);
