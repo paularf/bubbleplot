@@ -99,12 +99,12 @@ $mt_bubbleplot->get_color = function($big_group, $row_name, $col_name) {
 
 
 
-echo '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="1000" width="1500">';
-//$mg_bubbleplot->draw(200, 200);
-//draw_leyend (700, 640, $leyend_scale, $scientific_notation);
+echo '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="10000" width="15000">';
+$mg_bubbleplot->draw(200, 200);
+draw_leyend (700, 640, $leyend_scale, $scientific_notation);
 
-$mt_bubbleplot->draw(200, 200);
-draw_leyend (300, 385, $leyend_scale, $scientific_notation);
+$mt_bubbleplot->draw(200, 1000);
+draw_leyend (300, 1200, $leyend_scale, $scientific_notation);
 
 
 

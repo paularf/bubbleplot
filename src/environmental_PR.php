@@ -36,7 +36,7 @@ function define_oxygen_layer($oxy_sites, $sites_arr){
         $nitrite = $oxy_sites[$sites][0];
         $oxygen = $oxy_sites[$sites][1];
         if($nitrite >= 0.45 && $oxygen <= 2.3) $elem = "anoxic";
-        else if(!isset($nitrite) && $oxygen <= 2) $elem = "anoxic";
+        //else if(!isset($nitrite) && $oxygen <= 2) $elem = "anoxic";
         else if($oxygen >= 90) $elem = "oxic";
         else if ($depth >= 500) $elem = "down_oxycline";
         else if ($oxygen < 6) $elem = "low_oxygen";
@@ -115,6 +115,19 @@ function order_sites_by_oxygen_gradient($oxy_sites, $original_data){
   return $ordered_list;
 }
 
+function order_site_list_by_depth($site_list){
+  $site_depth_list = [];
+  $test = [];
+  foreach ($site_list as $site){
+    $depth = depth_by_site($site);
+    $site_depth_list[$site] = $depth; 
+    }
+    asort($site_depth_list);
+  foreach($site_depth_list as $site => $depth){
+    $list[] = $site;
+  }
+  return $list;
+}
 
 function get_site_names_by_depth($site_oxy_list){
   $site_depth_list = [];
