@@ -50,6 +50,17 @@ class DataTest extends \PHPUnit\Framework\TestCase {
 
 	}
 
+    public function testGetCols2(){
+        $dato = new Data;
+        $dato->data = [
+            'r1' => ['c1' => 5, 'c2' => 10 ],
+            'r2' => ['c1' => 20, 'c2' => 25 ]
+        ];
+        $col_names = $dato->get_column_names();
+        $this->assertEquals(['c1', 'c2'], $col_names);
+
+    }
+
 
 	public function testGetNotExistantValue() {
 		$chart = new Data;

@@ -9,10 +9,10 @@ class Data {
   		$result = [];
   		foreach ( $this->data as $columns) {
             foreach ( $columns as $col_name => $value ) {
-                $result[] = $col_name;
+                $result[$col_name] = 1;
             }
         }
-  		return $result;
+  		return array_keys($result);
 	}
 
 	function get_row_names() {
