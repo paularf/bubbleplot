@@ -1,7 +1,7 @@
 <?php
 include("../src/Ec_chart_tax_funcs.php");
 include("../data/php/00.total_counts.php");
-include("../src/Ec_chart.php");
+include("../src/Chart.php");
 include("../src/environmental_PR.php");
 
 $ecs = ["4.1.1.39", "2.3.1.169", "4.2.1.120", "6.2.1.40", "6.2.1.36", "1.3.1.84", "4.1.3.46", "1.2.1.75", "5.4.1.3", "4.2.1.153", "6.2.1.18"];
