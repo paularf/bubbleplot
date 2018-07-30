@@ -35,6 +35,7 @@ function define_oxygen_layer($oxy_sites, $sites_arr){
         $depth = depth_by_site($sites);
         $nitrite = $oxy_sites[$sites][0];
         $oxygen = $oxy_sites[$sites][1];
+        //if($nitrite >= 0.5 && $oxygen <= 2) $elem = "anoxic";
         if($nitrite >= 0.45 && $oxygen <= 2.3) $elem = "anoxic";
         //else if(!isset($nitrite) && $oxygen <= 2) $elem = "anoxic";
         else if($oxygen >= 90) $elem = "oxic";
@@ -46,6 +47,45 @@ function define_oxygen_layer($oxy_sites, $sites_arr){
   }
   return $oxy_def;
 }
+function get_site_names_by_depth($site_list){
+  $site_depth_list = [];
+  $test = [];
+  foreach ($site_list as $site){
+    $depth = depth_by_site($site);
+    $site_depth_list[$site] = $depth; 
+    }
+    asort($site_depth_list);
+  foreach($site_depth_list as $site => $depth){
+    $list[] = $site;
+  }
+  return $list;
+}
+function get_site_names_by_oxy_def($site_oxy_def, $def){
+  $site_oxy_list = [];
+  foreach ($site_oxy_def as $site => $oxy_def){
+    if ($oxy_def == "$def") $site_oxy_list[] = $site;
+  }
+  return $site_oxy_list;      
+}
+function order_sites_by_def_and_depth($oxy_def){
+  $ordered_def = ["oxic", "up_oxycline", "low_oxygen", "anoxic", "down_oxycline", "non_def"];      
+  $complete_list = [];
+  foreach($ordered_def as $def){
+    $list_by_def = [];
+    foreach($oxy_def as $sites => $definition){
+     if($def == $definition) {
+      $list_by_def = get_site_names_by_oxy_def($oxy_def, $def);
+      $list_by_def = order_site_list_by_depth($list_by_def);
+      }
+    }
+    foreach($list_by_def as $site){
+        $complete_list[] = $site; 
+    }
+  }
+  return $complete_list;
+}
+
+
 function color_by_oxy_def($site_oxy_def){
   $site_color = [];
   $color = '';
@@ -60,13 +100,7 @@ function color_by_oxy_def($site_oxy_def){
   } return $site_color;
 }
 
-function get_site_names_by_oxy_def($site_oxy_def, $def){
-  $site_oxy_list = [];
-  foreach ($site_oxy_def as $site => $oxy_def){
-    if ($oxy_def == "$def") $site_oxy_list[] = $site;
-  }
-  return $site_oxy_list;      
-}
+// las que vienen podrían ser útiles pero no están en uso de momento!!
 function order_site_list_by_oxygen_gradient($oxy_sites, $site_list){
   $ordered_list = [];
   $array_order = [];
@@ -82,21 +116,7 @@ function order_site_list_by_oxygen_gradient($oxy_sites, $site_list){
   } 
   return $ordered_list;
 }
-function order_sites_by_def_and_oxy($oxy_sites, $oxy_def){
-  $ordered_def = ["oxic", "up_oxycline", "low_oxygen", "anoxic", "down_oxycline", "non_def"];
-  $complete_list = [];
-  foreach($ordered_def as $def){
-    foreach($oxy_def as $sites_oxy_arr){    
-     if(isset($sites_oxy_arr[$def])){
-        $list_by_def = get_site_names_by_oxy_def($oxy_def, $def);
-        print_r($list_by_def);
-      //$list_by_def_and_delta_oxy = order_site_list_by_oxygen_gradient($oxy_sites, $list_by_def);
-      }
-      $complete_list = array_merge($complete_list, $list_by_def);
-    }
-  }
-  return($complete_list);
-}
+
 
 function order_sites_by_oxygen_gradient($oxy_sites, $original_data){
   $ordered_list = [];
@@ -129,19 +149,7 @@ function order_site_list_by_depth($site_list){
   return $list;
 }
 
-function get_site_names_by_depth($site_oxy_list){
-  $site_depth_list = [];
-  $test = [];
-  foreach ($site_oxy_list as $site){
-    $depth = depth_by_site($site);
-    $site_depth_list[$site] = $depth; 
-    }
-    asort($site_depth_list);
-  foreach($site_depth_list as $site => $depth){
-    $list[] = $site;
-  }
-  return $list;
-}
+
 
 
 

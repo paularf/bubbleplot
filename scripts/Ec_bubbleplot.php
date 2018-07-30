@@ -51,7 +51,7 @@ echo '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="10000" width
 
 
 $mg_bubble_plot->draw(200, 200);
-$mg_bubble_plot_2->draw(850, 200);
+$mg_bubble_plot_2->draw(950, 200);
 
 
 echo '</svg>';

@@ -21,25 +21,13 @@ $mg_ec_site_tax_data = flip_big_group_row_col_names($mg_site_ec_tax_relab);
 //oxigeno
 $mg_oxy_sites = load_oxy_sites();
 $mg_oxy_def_by_sites = define_oxygen_layer($mg_oxy_sites, $mg_site_ec_tax_relab);
+//print_r($mg_oxy_def_by_sites);
+$test_z = order_sites_by_def_and_depth($mg_oxy_def_by_sites);
+print_r($test_z);
 
-//$mg_list_by_oxygen_gradient = order_sites_by_oxygen_gradient($mg_oxy_sites, $mg_site_ec_tax_relab);
 
-//lista de metagenomas de acuerdo a la concentración de oxígeno, convertir esto en función y pasarlo a environmental_PR
-$mg_oxic_list = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "oxic");
-$mg_up_oxycline_list = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "up_oxycline");
-$mg_low_oxygen_list = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "low_oxygen");
-$mg_anoxic_list = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "anoxic");
-$low_down_oxycline_list = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "low_down_oxycline");
-$mg_down_oxycline_list = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "down_oxycline");
-$mg_list_by_oxygen = array_merge($mg_oxic_list, $mg_up_oxycline_list,$mg_low_oxygen_list, $mg_anoxic_list, $low_down_oxycline_list, $mg_down_oxycline_list);
 $color_list = color_by_oxy_def($mg_oxy_def_by_sites);
-$test = order_site_list_by_oxygen_gradient($mg_oxy_def_by_sites, $mg_oxic_list);
-//print_r($test);
-$test_r = get_site_names_by_depth($mg_list_by_oxygen);
-$test_s = order_sites_by_oxygen_gradient($mg_oxy_sites, $mg_site_ec_tax_relab);
 
-//print_r($test_s);
-//$temp_sites_arr = ""
 $leyend_scale = [ 1.5e-7, 1.5e-5, 1.5e-4, 2.0e-4];
 $scientific_notation = [];
 foreach ($leyend_scale as $value){
@@ -53,7 +41,7 @@ $mg_bubbleplot->site_name_filters = ['Mg_', '_DNA_454', '_DNA_IluMs', '_DNA_IluM
 $mg_bubbleplot->delta_x = 15;
 $mg_bubbleplot->delta_y = 12;
 $mg_bubbleplot->bubble_scale = 150000;
-$mg_bubbleplot->row_names = $mg_list_by_oxygen;//$test_s;//$test_r;//
+$mg_bubbleplot->row_names = $test_z;//$mg_list_by_oxygen;//$test_s;//$test_r;//
 $mg_bubbleplot->big_group = $ecs;
 $mg_bubbleplot->get_color = function($big_group, $row_name, $col_name) {
   global $color_list;
@@ -72,14 +60,7 @@ $mt_ec_site_tax_data = flip_big_group_row_col_names($mt_site_ec_tax_relab);
 $mt_oxy_sites = load_oxy_sites('../data/Tax_grouped/Mt_ambientales.txt');
 $mt_oxy_def_by_sites = define_oxygen_layer($mt_oxy_sites, $mt_site_ec_tax_relab);
 
-$mt_oxic_list = get_site_names_by_oxy_def($mt_oxy_def_by_sites, "oxic");
-$mt_up_oxycline_list = get_site_names_by_oxy_def($mt_oxy_def_by_sites, "up_oxycline");
-$mt_low_oxygen_list = get_site_names_by_oxy_def($mt_oxy_def_by_sites, "low_oxygen");
-$mt_anoxic_list = get_site_names_by_oxy_def($mt_oxy_def_by_sites, "anoxic");
-$mt_low_down_oxycline_list = get_site_names_by_oxy_def($mt_oxy_def_by_sites, "low_down_oxycline");
-$mt_down_oxycline_list = get_site_names_by_oxy_def($mt_oxy_def_by_sites, "down_oxycline");
-
-$mt_list_by_oxygen = array_merge($mt_oxic_list, $mt_up_oxycline_list,$mt_low_oxygen_list, $mt_anoxic_list, $mt_low_down_oxycline_list, $mt_down_oxycline_list);
+$mt_oxy_depth_list = order_sites_by_def_and_depth($mt_oxy_def_by_sites);
 
 $mt_color_list = color_by_oxy_def($mt_oxy_def_by_sites);
 
@@ -89,14 +70,12 @@ $mt_bubbleplot->site_name_filters = ['Mt_', '_cDNA_454', '_cDNA_IluMs', '_cDNA_I
 $mt_bubbleplot->delta_x = 15;
 $mt_bubbleplot->delta_y = 12;
 $mt_bubbleplot->bubble_scale = 150000;
-$mt_bubbleplot->row_names = $mt_list_by_oxygen;
+$mt_bubbleplot->row_names = $mt_oxy_depth_list;//$mt_list_by_oxygen;
 $mt_bubbleplot->big_group = $ecs;
 $mt_bubbleplot->get_color = function($big_group, $row_name, $col_name) {
   global $mt_color_list;
   return $mt_color_list[$row_name];
 };
-
-
 
 
 echo '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="10000" width="15000">';
