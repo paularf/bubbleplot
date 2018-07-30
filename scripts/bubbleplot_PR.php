@@ -19,11 +19,11 @@ $mg_site_ec_tax_relab = make_site_ec_tax_relab_arr($mg_files, $end_name, $ecs, $
 
 $mg_ec_site_tax_data = flip_big_group_row_col_names($mg_site_ec_tax_relab);
 //oxigeno
+$mg_ec_site_tax_data = reorder_arr_by_ecs($mg_ec_site_tax_data, $ecs);
 $mg_oxy_sites = load_oxy_sites();
 $mg_oxy_def_by_sites = define_oxygen_layer($mg_oxy_sites, $mg_site_ec_tax_relab);
 //print_r($mg_oxy_def_by_sites);
 $test_z = order_sites_by_def_and_depth($mg_oxy_def_by_sites);
-print_r($test_z);
 
 
 $color_list = color_by_oxy_def($mg_oxy_def_by_sites);

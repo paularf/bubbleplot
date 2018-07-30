@@ -68,7 +68,7 @@ function get_site_names_by_oxy_def($site_oxy_def, $def){
   return $site_oxy_list;      
 }
 function order_sites_by_def_and_depth($oxy_def){
-  $ordered_def = ["oxic", "up_oxycline", "low_oxygen", "anoxic", "down_oxycline", "non_def"];      
+  $ordered_def = ["oxic", "up_oxycline", "low_oxygen", "anoxic", "down_oxycline"];      
   $complete_list = [];
   foreach($ordered_def as $def){
     $list_by_def = [];

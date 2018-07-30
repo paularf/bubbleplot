@@ -103,6 +103,15 @@ function flip_big_group_row_col_names($array){
   }
   return $r;
 }
+
+function reorder_arr_by_ecs ($arr_ecs, $ecs){
+  $ordered_arr = [];
+  foreach($ecs as $ec){
+    if(isset($arr_ecs[$ec])) $ordered_arr[$ec] = $arr_ecs[$ec];
+  }
+  return $ordered_arr;
+}
+
 function get_taxa_names($sites) {
   $result = [];
   foreach ( $sites as $ecs ) {
