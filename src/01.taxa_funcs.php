@@ -42,7 +42,7 @@ function make_site_ec_tax_relab_arr($files, $end_name, $ecs, $total_count_arr){
   $sites_rel_ab_custom = [];
   foreach ($files as $file){
     $site = basename($file, $end_name);
-    $taxa_counts = make_ec_tax_count_arr($file, $ecs, 6);
+    $taxa_counts = make_ec_tax_count_arr($file, $ecs, 4);
     if ( isset($total_count_arr[$site]))
       $sites_rel_ab_custom[$site] = get_relab_from_ec_tax_count_arr($taxa_counts, $total_count_arr[$site]);
   }

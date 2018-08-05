@@ -7,8 +7,8 @@ require_once('../src/leyend_PR.php');
 
 $ecs = ["4.1.1.39", "2.3.1.169", "4.2.1.120", "6.2.1.40", "6.2.1.36", "1.3.1.84", "4.1.3.46", "1.2.1.75", "5.4.1.3", "4.2.1.153", "6.2.1.18"];
 
-$mg_files = glob("../data/tax_grouped/Mg_*.test.test.final_3.taxa");
-$end_name = ".test.test.final_3.taxa";
+$mg_files = glob("../data/Tax_not_gruped/Mg_*.not.grouped.taxa.txt");
+$end_name = ".test.not.grouped.taxa.txt";
 
 //**metagenomes
 
@@ -52,7 +52,7 @@ $mg_bubbleplot->get_color = function($big_group, $row_name, $col_name) {
 
 //***Metatranscriptomas
 
-$mt_files = glob("../data/tax_grouped/Mt_*.test.test.final_3.taxa");
+$mt_files = glob("../data/Tax_not_gruped/Mt_*.test.not.grouped.taxa.txt");
 $mt_site_ec_tax_relab = make_site_ec_tax_relab_arr($mt_files, $end_name, $ecs, $mt_count_arr);
 
 $mt_ec_site_tax_data = flip_big_group_row_col_names($mt_site_ec_tax_relab);
@@ -80,10 +80,10 @@ $mt_bubbleplot->get_color = function($big_group, $row_name, $col_name) {
 
 echo '<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="10000" width="15000">';
 $mg_bubbleplot->draw(200, 200);
-draw_leyend (700, 640, $leyend_scale, $scientific_notation);
+draw_leyend (700, 700, $leyend_scale, $scientific_notation);
 
 $mt_bubbleplot->draw(200, 1000);
-draw_leyend (300, 1200, $leyend_scale, $scientific_notation);
+draw_leyend (300, 1400, $leyend_scale, $scientific_notation);
 
 
 
