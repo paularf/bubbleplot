@@ -7,7 +7,7 @@ require_once('../src/leyend_PR.php');
 
 $ecs = ["4.1.1.39", "2.3.1.169", "4.2.1.120", "6.2.1.40", "6.2.1.36", "1.2.1.75","1.3.1.84", "5.4.1.3", "4.2.1.153", "6.2.1.18"];
 
-$ec_colors = ["4.1.1.39" => '#00a400', "2.3.1.169" => '#f4415c', "4.2.1.120" => 'blue', "6.2.1.36" => '#8342f4', "1.2.1.75" =>'#8342f4',"6.2.1.40" => '#8342f4', "1.3.1.84" => '#9e42f4', "5.4.1.3" => '#9e42f4', "4.2.1.153" => '#9e42f4', "2.3.3.8" => '#f48f42', "6.2.1.18" => '#f48f42'];
+$ec_colors = ["4.1.1.39" => '#00a400', "2.3.1.169" => '#ff4000', "4.2.1.120" => 'blue', "6.2.1.36" => 'purple', "1.2.1.75" =>'purple',"6.2.1.40" => 'purple', "1.3.1.84" => '#ff00bf', "5.4.1.3" => '#ff00bf', "4.2.1.153" => '#ff00bf', "2.3.3.8" => '#ff0000', "6.2.1.18" => '#ff0000'];
 
 $carlos_ecs = ["1.11.1.5", "1.11.1.6", "1.11.1.9", "1.11.1.21", "1.15.1.1", "1.3.98.3", "1.3.3.3", "1.10.9.1"];
 
@@ -56,10 +56,10 @@ $mg_bubbleplot->bubble_scale = 150000;
 $mg_bubbleplot->row_names = $test_z;//$mg_list_by_oxygen;//$test_s;//$test_r;//
 //$mg_bubbleplot->big_group = $ecs;
 $mg_bubbleplot->get_color = function($big_group, $row_name, $col_name) {
-  //global $color_list;
-  //return $color_list[$row_name];
-  global $ec_colors;
-  return $ec_colors[$big_group];
+  global $color_list;
+  return $color_list[$row_name];
+  //global $ec_colors;
+  //return $ec_colors[$big_group];
 };
 
 //***Metatranscriptomas

@@ -97,22 +97,22 @@ function draw_ec_colors_scale_leyend($x, $y, $scale){
   }
   draw_line($x, $y+30, $current_x, $y+30, 'black', 0.2);
 
-  draw_bubble($current_x + 20, $y - 20, 6, 'green'); 
+  draw_bubble($current_x + 20, $y - 20, 6, '#00a400'); 
   draw_text($current_x + 30, $y - 16, 'CBB cycle', 0, 12);
 
-  draw_bubble($current_x + 20, $y, 6, '#f4415c'); 
+  draw_bubble($current_x + 20, $y, 6, '#ff4000'); 
   draw_text($current_x + 30, $y + 4, 'r_CoA pathway', 0, 12);
 
   draw_bubble($current_x + 20, $y + 20, 6, 'blue'); 
   draw_text($current_x + 30, $y + 24, '3HP_4HB cycle', 0, 12);
 
-  draw_bubble($current_x + 20, $y + 40, 6, '#8342f4'); 
+  draw_bubble($current_x + 20, $y + 40, 6, 'purple'); 
   draw_text($current_x + 30, $y + 44, '3HP_4HB cycle and 3HP bicycle', 0, 12);
 
-  draw_bubble($current_x + 20, $y + 60, 6, '#9e42f4'); 
+  draw_bubble($current_x + 20, $y + 60, 6, '#ff00bf'); 
   draw_text($current_x + 30, $y + 64, '3HP bicycle', 0, 12);
 
-  draw_bubble($current_x + 20, $y + 80, 6, '#f48f42'); 
+  draw_bubble($current_x + 20, $y + 80, 6, '#ff0000'); 
   draw_text($current_x + 30, $y + 84, 'rTCA cycle', 0, 12);
 }
 

@@ -40,7 +40,7 @@ function define_oxygen_layer($oxy_sites, $sites_arr){
         //else if(!isset($nitrite) && $oxygen <= 2) $elem = "anoxic";
         else if($oxygen >= 90) $elem = "oxic";
         else if ($depth >= 500) $elem = "down_oxycline";
-        else if ($oxygen < 20) $elem = "low_oxygen";
+        else if ($oxygen < 10) $elem = "low_oxygen";
         else $elem = "up_oxycline";
       } else $elem = "non_def";
       $oxy_def[$sites] = $elem;
