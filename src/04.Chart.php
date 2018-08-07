@@ -21,7 +21,41 @@ function __construct() {
   };
 }
 
+function get_total_by_column($big_group, $col_name){
+  $total = 0;
+  foreach ($this->row_names as $row_name){
+    $total += $this->get_value($big_group, $row_name, $col_name);
+  }
+  return $total;
+}
+
 function get_column_names() {
+  $result = [];
+  //$result[] = "Cyanobacterias";
+  foreach ( $this->data as $big_group => $rows) {
+    foreach ( $rows as $columns ) {
+      foreach ( $columns as $col_name => $value) {
+        $total = $this->get_total_by_column($big_group, $col_name);
+        $arr[$big_group][$col_name] = $total;  
+      } 
+      }
+      arsort($arr[$big_group]);
+      foreach($arr as $big_group_2){
+        foreach($big_group_2 as $col_name_2 => $total){
+          if ( in_array($col_name_2, $result) ) continue;
+          else if($col_name_2 == "Other") continue;
+          else if($col_name_2 == "Chloroflexi bacteria") continue;  
+        $result[] = $col_name_2;
+        }    
+      }
+      $arr = []; 
+  }
+  $result[] = "Chloroflexi bacteria";
+  $result[] = "Other";
+  return $result;
+}
+
+function get_column_names_2() {
   $result = [];
   foreach ( $this->data as $rows ) {
     foreach ( $rows as $columns ) {
@@ -127,14 +161,6 @@ function draw_bubble_column_by_big_group_col_name($x, $y, $big_group, $col_name)
 }
 
 
-function get_total_by_column($big_group, $col_name){
-  $total = 0;
-  foreach ($this->row_names as $row_name){
-    $total += $this->get_value($big_group, $row_name, $col_name);
-  }
-  return $total;
-}
-
 function draw_bubble_per_big_group($x, $y, $big_group){
   $current_x = $x;
   $contador = 0;
@@ -172,7 +198,7 @@ function draw($x, $y) {
   if ( empty($this->column_names) ) {
     $this->column_names = $this->get_column_names();
   }
-  $this->draw_row_names($x - 140, $y - 8, $this->row_names);
+  $this->draw_row_names($x - 95, $y - 8, $this->row_names);
   
   //$this->draw_bubble_per_metaoma($x + 300, $y + 800, "2.3.1.169");
   //$this->draw_bubble_column_by_big_group_col_name($x + 300, $y , "2.3.1.169", "Candidatus Scalindua brodae");

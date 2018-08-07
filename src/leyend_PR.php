@@ -23,31 +23,6 @@ function draw_bubble($x, $y, $value, $color = 'red') {
   printf('<ellipse cx="%f" cy="%f" rx="%f" ry="%f" fill-opacity="0.2" style="fill:%s;stroke:%s;stroke-width:1" />', $x, $y, $value, $value, $color, $color);
 }
 
-
-function draw_scale_leyend($x, $y, $scale){
-  $current_x = $x;
-  foreach ($scale as $value){
-    draw_bubble($current_x, $y +30, 150000*$value, '#4e4f51');
-    $current_x += 50;
-  }
-  draw_line($x, $y+30, $current_x, $y+30, 'black', 0.2);
-
-  draw_bubble($current_x + 20, $y - 20, 6, 'green'); 
-  draw_text($current_x + 30, $y - 15, 'Oxic', 0, 12);
-
-  draw_bubble($current_x + 20, $y, 6, 'blue'); 
-  draw_text($current_x + 30, $y + 5, 'Up oxycline', 0, 12);
-
-  draw_bubble($current_x + 20, $y + 20, 6, 'purple'); 
-  draw_text($current_x + 30, $y + 25, 'Low oxygen concentration', 0, 12);
-
-  draw_bubble($current_x + 20, $y + 40, 6, 'red'); 
-  draw_text($current_x + 30, $y + 45, 'Anoxic', 0, 12);
-
-  draw_bubble($current_x + 20, $y + 60, 6, '#3602f4'); 
-  draw_text($current_x + 30, $y + 65, 'Low oxycline', 0, 12);
-}
-
 function get_max($data){
   $max = 0.0000001;
   foreach ($data as $sites){
@@ -76,15 +51,74 @@ $min = 100000000;
 function formatScientific($someFloat){
   return sprintf("%.2e", $someFloat);
 }
-function draw_leyend ($x, $y, $leyend_scale, $scientific_notation){
-  draw_scale_leyend($x, $y, $leyend_scale);
-  draw_scient_values ($x - 15, $y + 30, $scientific_notation);
-}
 
-function draw_scient_values ($x, $y, $values){
-  draw_text($x, $y + 28, 'Relative abundance per metagenome', 0, 8, 'bold');
+function draw_scale_leyend($x, $y, $scale){
+  $current_x = $x;
+  foreach ($scale as $value){
+    draw_bubble($current_x, $y +30, 150000*$value, '#4e4f51');
+    $current_x += 50;
+  }
+  draw_line($x, $y+30, $current_x, $y+30, 'black', 0.2);
+
+  draw_bubble($current_x + 20, $y - 20, 6, 'green'); 
+  draw_text($current_x + 30, $y - 15, 'Oxic', 0, 12);
+
+  draw_bubble($current_x + 20, $y, 6, 'blue'); 
+  draw_text($current_x + 30, $y + 5, 'Up oxycline', 0, 12);
+
+  draw_bubble($current_x + 20, $y + 20, 6, 'purple'); 
+  draw_text($current_x + 30, $y + 25, 'Low oxygen concentration', 0, 12);
+
+  draw_bubble($current_x + 20, $y + 40, 6, 'red'); 
+  draw_text($current_x + 30, $y + 45, 'Anoxic', 0, 12);
+
+  draw_bubble($current_x + 20, $y + 60, 6, '#3602f4'); 
+  draw_text($current_x + 30, $y + 65, 'Low oxycline', 0, 12);
+}
+function draw_scient_values ($x, $y, $values, $metaome = "metagenome"){
+  draw_text($x, $y + 28, 'Relative abundance per ' . $metaome, 0, 8, 'bold');
   foreach ($values as $value){
     draw_text($x, $y + 18, $value, 0, 8);
     $x += 50;
   }
+}
+
+function draw_leyend ($x, $y, $leyend_scale, $scientific_notation, $metaome = "metagenome"){
+  draw_scale_leyend($x, $y, $leyend_scale);
+  draw_scient_values ($x - 15, $y + 30, $scientific_notation, $metaome);
+}
+
+
+function draw_ec_colors_scale_leyend($x, $y, $scale){
+  $current_x = $x;
+  foreach ($scale as $value){
+    draw_bubble($current_x, $y +30, 150000*$value, '#4e4f51');
+    $current_x += 50;
+  }
+  draw_line($x, $y+30, $current_x, $y+30, 'black', 0.2);
+
+  draw_bubble($current_x + 20, $y - 20, 6, 'green'); 
+  draw_text($current_x + 30, $y - 16, 'CBB cycle', 0, 12);
+
+  draw_bubble($current_x + 20, $y, 6, '#f4415c'); 
+  draw_text($current_x + 30, $y + 4, 'r_CoA pathway', 0, 12);
+
+  draw_bubble($current_x + 20, $y + 20, 6, 'blue'); 
+  draw_text($current_x + 30, $y + 24, '3HP_4HB cycle', 0, 12);
+
+  draw_bubble($current_x + 20, $y + 40, 6, '#8342f4'); 
+  draw_text($current_x + 30, $y + 44, '3HP_4HB cycle and 3HP bicycle', 0, 12);
+
+  draw_bubble($current_x + 20, $y + 60, 6, '#9e42f4'); 
+  draw_text($current_x + 30, $y + 64, '3HP bicycle', 0, 12);
+
+  draw_bubble($current_x + 20, $y + 80, 6, '#f48f42'); 
+  draw_text($current_x + 30, $y + 84, 'rTCA cycle', 0, 12);
+}
+
+
+
+function draw_ec_colors_leyend ($x, $y, $leyend_scale, $scientific_notation, $metaome = "metagenome"){
+  draw_ec_colors_scale_leyend($x, $y, $leyend_scale);
+  draw_scient_values ($x - 15, $y + 30, $scientific_notation, $metaome);
 }

@@ -37,12 +37,12 @@ function get_relab_from_ec_tax_count_arr($ec_taxa_counts, $total) {
   return $rel_abs_custom;
 }
 
-function make_site_ec_tax_relab_arr($files, $end_name, $ecs, $total_count_arr){
+function make_site_ec_tax_relab_arr($files, $end_name, $ecs, $total_count_arr, $limit = 4){
   $sites_counts = [];
   $sites_rel_ab_custom = [];
   foreach ($files as $file){
     $site = basename($file, $end_name);
-    $taxa_counts = make_ec_tax_count_arr($file, $ecs, 4);
+    $taxa_counts = make_ec_tax_count_arr($file, $ecs, $limit);
     if ( isset($total_count_arr[$site]))
       $sites_rel_ab_custom[$site] = get_relab_from_ec_tax_count_arr($taxa_counts, $total_count_arr[$site]);
   }
@@ -106,6 +106,15 @@ function flip_big_group_row_col_names($array){
 
 function reorder_arr_by_ecs ($arr_ecs, $ecs){
   $ordered_arr = [];
+  //$arr_ecs = get_ordered_col_by_total($arr_ecs);
+  foreach($ecs as $ec){
+    if(isset($arr_ecs[$ec])) $ordered_arr[$ec] = $arr_ecs[$ec];
+  }
+  return $ordered_arr;
+}
+
+function reorder_arr_by_ecs_2 ($arr_ecs, $ecs){
+  $ordered_arr = [];
   foreach($ecs as $ec){
     if(isset($arr_ecs[$ec])) $ordered_arr[$ec] = $arr_ecs[$ec];
   }
@@ -130,7 +139,7 @@ $site_color = [];
   foreach($sites_counts as $site => $ec_tax_name_array){
     foreach ($ec_tax_name_array as $ec => $tax_name_count_array){
       foreach ($ec_colors as $ec_color => $color){
-        if ($ec == $ec_color) $site_color[$site][$ec] = $color;
+        if ($ec == $ec_color) $site_color[$ec] = $color;
       }
     }
   }
