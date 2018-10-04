@@ -1,6 +1,6 @@
 <?php
 
-function make_ec_tax_count_arr($file, $ecs, $limit = 2) {
+function make_ec_tax_count_arr($file, $ecs) {
   $taxa_counts = [];
   foreach($ecs as $ec){
     $f = fopen($file, "r");
@@ -9,7 +9,6 @@ function make_ec_tax_count_arr($file, $ecs, $limit = 2) {
       $ec_number = $columns[0];
       $taxa_name = $columns[1];
       $taxa_count= $columns[2];
-      if ($taxa_count <= $limit) continue;
       if ($ec == $ec_number)
         $taxa_counts[$ec][$taxa_name] = $taxa_count;
     }
@@ -19,32 +18,33 @@ function make_ec_tax_count_arr($file, $ecs, $limit = 2) {
 }
 
 //saca abundancias relativas del array que contiene tax_name y $counts(para ser usado en array de un nivel)
-function get_rel_abundance_custom_from_tax_count($taxa_count, $total){
+function get_rel_abundance_custom_from_tax_count($taxa_count, $total, $limit = 0.0000000001){
   $custom_taxa_rel = [];
   foreach($taxa_count as $tax_name => $count){
     $rel_ab = $count/$total;
-    $custom_taxa_rel[$tax_name] = $rel_ab;
+    if ($rel_ab < $limit) continue;
+    else $custom_taxa_rel[$tax_name] = $rel_ab;
   }
   return $custom_taxa_rel;
 }
 
 //saca abundancias relativas aplicando función anterior al segundo nivel del array creado por la primera funcion
-function get_relab_from_ec_tax_count_arr($ec_taxa_counts, $total) {
+function get_relab_from_ec_tax_count_arr($ec_taxa_counts, $total, $limit = 0.0000000001) {
   $rel_abs_custom = [];
   foreach ( $ec_taxa_counts as $ecs => $counts ) {
-    $rel_abs_custom[$ecs] = get_rel_abundance_custom_from_tax_count($counts, $total);
+    $rel_abs_custom[$ecs] = get_rel_abundance_custom_from_tax_count($counts, $total, $limit);
   }
   return $rel_abs_custom;
 }
 
-function make_site_ec_tax_relab_arr($files, $end_name, $ecs, $total_count_arr, $limit = 4){
+function make_site_ec_tax_relab_arr($files, $end_name, $ecs, $total_count_arr, $limit = 0.0000000001){
   $sites_counts = [];
   $sites_rel_ab_custom = [];
   foreach ($files as $file){
     $site = basename($file, $end_name);
-    $taxa_counts = make_ec_tax_count_arr($file, $ecs, $limit);
+    $taxa_counts = make_ec_tax_count_arr($file, $ecs);
     if ( isset($total_count_arr[$site]))
-      $sites_rel_ab_custom[$site] = get_relab_from_ec_tax_count_arr($taxa_counts, $total_count_arr[$site]);
+      $sites_rel_ab_custom[$site] = get_relab_from_ec_tax_count_arr($taxa_counts, $total_count_arr[$site], $limit);
   }
   return $sites_rel_ab_custom;
 }
