@@ -92,10 +92,10 @@ function draw_leyend ($x, $y, $leyend_scale, $scientific_notation, $metaome = "m
 function draw_ec_colors_scale_leyend($x, $y, $scale){
   $current_x = $x;
   foreach ($scale as $value){
-    draw_bubble($current_x, $y +30, 150000*$value, '#4e4f51');
+    draw_bubble($current_x, $y +30, 150000000*$value, '#4e4f51');
     $current_x += 50;
   }
-  draw_line($x, $y+30, $current_x, $y+30, 'black', 0.2);
+  draw_line($x, $y+30, $current_x - 25, $y+30, 'black', 0.2);
 
   draw_bubble($current_x + 20, $y - 20, 6, '#00a400'); 
   draw_text($current_x + 30, $y - 16, 'CBB cycle', 0, 12);

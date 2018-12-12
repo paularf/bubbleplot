@@ -17,7 +17,48 @@ function make_ec_tax_count_arr($file, $ecs) {
   return $taxa_counts;
 }
 
-//saca abundancias relativas del array que contiene tax_name y $counts(para ser usado en array de un nivel)
+function add_average_sizes_per_ec ($gene_lengths_by_ec = "../../piecharts/data/gene_lengths_by_ec.txt"){
+  $f = fopen($gene_lengths_by_ec, "r");
+  $ec_ave_arr = [];
+  while($line = trim(fgets($f))){
+    $cols = explode("\t", $line);
+    $ec = $cols[0];
+    $average_per_ko = $cols[2];
+    if(!isset($ec_ave_arr[$ec])) $ec_ave_arr[$ec] = $average_per_ko;
+    else $ec_ave_arr[$ec] += $average_per_ko;
+  }
+  fclose($f);
+  return $ec_ave_arr;
+}
+
+//****** normalización con tamaño del gen
+
+function get_rel_ab_with_gene_size_and_total_counts($ec_tax_count_arr, $total, $ecs_size_arr, $limit = 0.00000000000001){
+  $ec_tax_rel_ab_arr = [];
+  foreach($ec_tax_count_arr as $ec => $taxa_counts_arr){
+    $ec_size = $ecs_size_arr[$ec]*3;
+    foreach($taxa_counts_arr as $taxa => $counts){
+      $rel_ab = $counts/($total*$ec_size);
+      if($rel_ab < $limit) continue;
+      else $ec_tax_rel_ab_arr[$ec][$taxa] = $rel_ab; 
+    }
+  }
+  return $ec_tax_rel_ab_arr;
+}
+
+function make_site_ec_rel_ab_with_ec_size($files, $ecs, $total_arr, $ecs_size_arr, $end_name, $limit = 0.00000000000001){
+  $ec_tax_count_arr = [];
+  $site_ec_tax_relab_arr = []; 
+  foreach($files as $file){
+    $site = basename($file, $end_name);
+    $ec_tax_count_arr = make_ec_tax_count_arr($file, $ecs);
+    if(!isset($total_arr[$site])) continue;
+    else $site_ec_tax_relab_arr[$site] = get_rel_ab_with_gene_size_and_total_counts($ec_tax_count_arr, $total_arr[$site], $ecs_size_arr, $limit);
+  }
+  return $site_ec_tax_relab_arr;
+}
+
+//***** sin agregar el tamaño del gen
 function get_rel_abundance_custom_from_tax_count($taxa_count, $total, $limit = 0.0000000001){
   $custom_taxa_rel = [];
   foreach($taxa_count as $tax_name => $count){
@@ -43,12 +84,16 @@ function make_site_ec_tax_relab_arr($files, $end_name, $ecs, $total_count_arr, $
   foreach ($files as $file){
     $site = basename($file, $end_name);
     $taxa_counts = make_ec_tax_count_arr($file, $ecs);
-    if ( isset($total_count_arr[$site]))
-      $sites_rel_ab_custom[$site] = get_relab_from_ec_tax_count_arr($taxa_counts, $total_count_arr[$site], $limit);
+    if ( isset($total_count_arr[$site])){
+      $total = $total_count_arr[$site];
+      $sites_rel_ab_custom[$site] = get_relab_from_ec_tax_count_arr($taxa_counts, $total, $limit);
+    }  
   }
   return $sites_rel_ab_custom;
 }
-//saca rankings desde un array o subarray que tiene los taxa names y los taxa_counts 
+
+//******
+
 function get_rankings_from_tax_count($taxa_count, $max = 1000) {
  $ranking = [];
  arsort($taxa_count);

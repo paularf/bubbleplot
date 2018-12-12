@@ -6,8 +6,8 @@ function load_oxy_sites($filename = '../data/Tax_grouped/Mg_ambientales.txt') {
   while($line = trim(fgets($file))){
     $cols = explode("\t", $line);
     $site_name = $cols[0];
-    $oxygen = $cols[1];
-    if(isset($cols[5])) $nitrite = $cols[5];
+    $oxygen = $cols[5];
+    if(isset($cols[9])) $nitrite = $cols[9];
     else $nitrite = null; 
     if (!isset($oxygen)) $oxygen = null;
     $oxy_sites[$site_name] = [$nitrite, $oxygen];
@@ -67,6 +67,22 @@ function get_site_names_by_oxy_def($site_oxy_def, $def){
   }
   return $site_oxy_list;      
 }
+
+function order_sites_def_by_oceans($site_oxy_list){
+  $ETSP = [];
+  $ETNP = [];
+  $arabian = [];
+  $list = [];
+  foreach($site_oxy_list as $site){
+    $site_name = explode("_", $site);
+    $ocean = $site_name[1];
+    if ($ocean == "ETSP") $ETSP[] = $site;
+    else if($ocean == "ETNP") $ETNP[] = $site;
+    else $arabian[] = $site;
+  }
+  $list =  array_merge($ETSP, $ETNP, $arabian);
+  return $list;
+}
 function order_sites_by_def_and_depth($oxy_def){
   $ordered_def = ["oxic", "up_oxycline", "low_oxygen", "anoxic", "down_oxycline"];      
   $complete_list = [];
@@ -76,6 +92,7 @@ function order_sites_by_def_and_depth($oxy_def){
      if($def == $definition) {
       $list_by_def = get_site_names_by_oxy_def($oxy_def, $def);
       $list_by_def = order_site_list_by_depth($list_by_def);
+      $list_by_def = order_sites_def_by_oceans($list_by_def);
       }
     }
     foreach($list_by_def as $site){

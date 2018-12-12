@@ -8,9 +8,13 @@ require_once('../src/leyend_PR.php');
 //$ecs = ["4.1.1.39", "2.7.1.19", "2.3.1.169", "2.1.1.258", "4.2.1.120", "6.2.1.40", "6.2.1.36", "1.2.1.75","1.3.1.84", "5.4.1.3", "4.2.1.153", "6.2.1.18", "2.3.3.8"];
 $ecs = ["4.1.1.39", "2.3.1.169", "4.2.1.120", "1.2.1.75","1.3.1.84", "5.4.1.3", "4.2.1.153", "6.2.1.18"];
 
+$cogs = ["COG1850", /*"COG0572".*/ "COG1152", "COG1614", "COG2368"];
+
 $ec_colors = ["4.1.1.39" => '#00a400', "2.7.1.19" => '#00a400', "2.3.1.169" => '#ff4000', "2.1.1.258" => '#ff4000', "4.2.1.120" => 'blue', "6.2.1.36" => 'purple', "1.2.1.75" =>'purple',"6.2.1.40" => 'purple', "1.3.1.84" => 'purple', "5.4.1.3" => '#ff00bf', "4.2.1.153" => '#ff00bf', "2.3.3.8" => '#ff0000', "6.2.1.18" => '#ff0000', "2.3.3.8" => '#ff0000'];
-
-
+$cog_colors = ["COG1850" => '#00a400', "COG0572" => '#00a400', "COG1152" => '#ff4000', "COG1614" => '#ff4000', "COG0136" =>'purple', "COG2368" => 'blue', "COG0365"=> 'purple', "COG1541" => 'purple', "COG1064" => 'purple', "COG1804" => '#ff00bf', "COG3777"=> '#ff00bf'];
+//**cogs
+//$mg_files = glob("../data/cog_not_grouped/Mg*.not.grouped.taxa.txt");
+//$end_name = ".not.grouped.taxa.txt";
 
 //**ungrouped
 //$mg_files = glob("../data/not_grouped/Mg_*.not.grouped.taxa.txt");
@@ -22,17 +26,29 @@ $end_name = ".test.test.final_1.taxa";
 //**metagenomes
 
 //abundancia relativa y rearreglo de las filas y las columnas para probar dibujo
-$mg_site_ec_tax_relab = make_site_ec_tax_relab_arr($mg_files, $end_name, $ecs, $mg_count_arr, 0.000006);
-//var_dump(get_min($mg_site_ec_tax_relab));
-//var_dump(get_max($mg_site_ec_tax_relab));
+$ec_size_arr = add_average_sizes_per_ec();
+// print_r($ec_size_arr);
+
+///**** normalización sin gen_size
+//$mg_site_ec_tax_relab = make_site_ec_tax_relab_arr($mg_files, $end_name, /*$cogs*/$ecs, $mg_count_arr, /*$ec_size_arr,*/ 0.000006);
+//print_r($mg_site_ec_tax_relab);
+
+//***** Normalización con gen size
+$mg_site_ec_tax_relab = make_site_ec_rel_ab_with_ec_size($mg_files, $ecs, $mg_count_arr, $ec_size_arr, $end_name, $limit = 0.000000006);
+var_dump(get_min($mg_site_ec_tax_relab));
+var_dump(get_max($mg_site_ec_tax_relab));
 
 $mg_ec_site_tax_data = flip_big_group_row_col_names($mg_site_ec_tax_relab);
 //oxigeno
-$mg_ec_site_tax_data = reorder_arr_by_ecs($mg_ec_site_tax_data, $ecs);
+$mg_ec_site_tax_data = reorder_arr_by_ecs($mg_ec_site_tax_data, /*$cogs*/$ecs);
 //print_r($mg_ec_site_tax_data);
 $mg_oxy_sites = load_oxy_sites("../data/not_grouped/Mg_ambientales.txt");
 $mg_oxy_def_by_sites = define_oxygen_layer($mg_oxy_sites, $mg_site_ec_tax_relab);
 //print_r($mg_oxy_def_by_sites);
+$test_b = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "anoxic");
+//print_r($test_b);
+$test_c = order_sites_def_by_oceans($test_b);
+print_r($test_c);
 $test_z = order_sites_by_def_and_depth($mg_oxy_def_by_sites);
 
 
@@ -40,26 +56,30 @@ $color_list = color_by_oxy_def($mg_oxy_def_by_sites);
 $ec_color_list = get_color_from_ec_colors_and_site_ec_array ($ec_colors, $mg_site_ec_tax_relab);
 //print_r($ec_color_list);
 
-$leyend_scale = [ 1.5e-7, 1.5e-5, 1.5e-4, 2.0e-4];
+$leyend_scale = [ 3.0e-9, 3.0e-8, 1.5e-7];
 $scientific_notation = [];
 foreach ($leyend_scale as $value){
   $scient = formatScientific($value);
   $scientific_notation[] = $scient;
 }
 
+$list_by_oxygen_and_geography = ["Mg_ETSP_Galathea_60m_DNA_454", "Mg_ETSP_MOOMZ3_80m_DNA_454", "Mg_ETSP_MOOMZ3_110m_DNA_454", "Mg_ETSP_MOOMZ3_150m_DNA_454", "Mg_ETSP_MOOMZ1_200m_DNA_454", "Mg_Arabian_Sea_OMZ_core_PA5_IT", "Mg_ETNP_OMZoMBiE_2013_St6_100m_DNA_IluMS", "Mg_ETNP_OMZoMBiE_2013_St10_125m_DNA_IluMs", "Mg_ETNP_OMZoMBiE_2013_St6_125m_DNA_IluMS", "Mg_ETNP_OMZoMBiE_2013_St10_300m_DNA_IluMS", "Mg_ETNP_OMZoMBiE_2013_St6_300m_DNA_IluMS"];
+
 $mg_bubbleplot = new Chart;
 $mg_bubbleplot->data = $mg_ec_site_tax_data;
 $mg_bubbleplot->site_name_filters = ['Mg_', '_DNA_454', '_DNA_IluMs', '_DNA_IluMS', '_454', 'IT', 'PA5', 'PA2'];
 $mg_bubbleplot->delta_x = 15;
 $mg_bubbleplot->delta_y = 12;
-$mg_bubbleplot->bubble_scale = 150000;
-$mg_bubbleplot->row_names = $test_z;//$mg_list_by_oxygen;//$test_s;//$test_r;//
+$mg_bubbleplot->bubble_scale = 150000000;
+$mg_bubbleplot->row_names = /*$list_by_oxygen_and_geography;*/$test_z;//$mg_list_by_oxygen;//$test_s;//$test_r;//
 //$mg_bubbleplot->big_group = $ecs;
 $mg_bubbleplot->get_color = function($big_group, $row_name, $col_name) {
   //global $color_list;
   //return $color_list[$row_name];
   global $ec_colors;
   return $ec_colors[$big_group];
+	//global $cog_colors;
+	//return $cog_colors[$big_group];
 };
 
 //***Metatranscriptomas
@@ -97,7 +117,7 @@ $mg_bubbleplot->draw(200, 200);
 draw_ec_colors_leyend (500, 800, $leyend_scale, $scientific_notation, $metaome = "metagenome");
 //draw_leyend (700, 800, $leyend_scale, $scientific_notation);
 
-$mt_bubbleplot->draw(100, 1100);
+//$mt_bubbleplot->draw(100, 1100);
 //draw_leyend (300, 1500, $leyend_scale, $scientific_notation, $metaome = "metatranscriptome");
 
 
