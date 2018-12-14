@@ -58,6 +58,51 @@ function make_site_ec_rel_ab_with_ec_size($files, $ecs, $total_arr, $ecs_size_ar
   return $site_ec_tax_relab_arr;
 }
 
+function add_total_tax_ab_per_site_and_ec($site_ec_tax_relab_arr){
+  $total_tax_ab_per_ec = [];
+  foreach($site_ec_tax_relab_arr as $site => $ec_tax_rel_ab){
+    foreach($ec_tax_rel_ab as $ec => $tax_rel_ab){
+      foreach($tax_rel_ab as $tax => $rel_ab){
+        if (!isset($total_tax_ab_per_ec[$ec][$tax])) $total_tax_ab_per_ec[$ec][$tax] = $rel_ab;
+        else $total_tax_ab_per_ec[$ec][$tax] += $rel_ab;
+      }
+    }
+  }
+  foreach($total_tax_ab_per_ec as $ec_2 => $tax_relab){
+    arsort($tax_relab);
+    $total_tax_ab_per_ec[$ec_2] = $tax_relab;
+
+  }
+  return $total_tax_ab_per_ec;
+}
+
+function get_most_abundant_tax_names_per_ec ($total_tax_ab_per_ec, $ranking = 4){
+  $most_abundant_tax_names_per_ec = [];
+  
+  foreach($total_tax_ab_per_ec as $ec => $tax_total){
+    $i = 0;
+    foreach($tax_total as $tax => $total){
+      if ($i > $ranking) continue;
+      else $most_abundant_tax_names_per_ec[$ec][$tax] = $total;
+      $i += 1;
+    }
+  }
+  return $most_abundant_tax_names_per_ec;
+}
+
+function make_most_abundant_site_ec_tax_rel_ab($site_ec_tax_relab_arr, $most_abundant_tax_names_per_ec){
+  $most_abundant_site_ec_tax_rel_ab = [];
+  foreach($site_ec_tax_relab_arr as $site => $ec_tax_relab){
+    foreach($ec_tax_relab as $ec => $tax_relab){
+      foreach($tax_relab as $tax => $relab){
+        if (isset($most_abundant_tax_names_per_ec[$ec][$tax])) $most_abundant_site_ec_tax_rel_ab[$site][$ec][$tax] = $relab;
+      }
+    }
+  }
+  return $most_abundant_site_ec_tax_rel_ab;
+}
+
+
 //***** sin agregar el tamaño del gen
 function get_rel_abundance_custom_from_tax_count($taxa_count, $total, $limit = 0.0000000001){
   $custom_taxa_rel = [];

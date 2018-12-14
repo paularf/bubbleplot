@@ -17,12 +17,12 @@ $cog_colors = ["COG1850" => '#00a400', "COG0572" => '#00a400', "COG1152" => '#ff
 //$end_name = ".not.grouped.taxa.txt";
 
 //**ungrouped
-//$mg_files = glob("../data/not_grouped/Mg_*.not.grouped.taxa.txt");
-//$end_name = ".test.not.grouped.taxa.txt";
+$mg_files = glob("../data/not_grouped/Mg_*.not.grouped.taxa.txt");
+$end_name = ".test.not.grouped.taxa.txt";
 
 //**grouped
-$mg_files = glob("../data/grouped/Mg_*.taxa");
-$end_name = ".test.test.final_1.taxa";
+//$mg_files = glob("../data/grouped/Mg_*.taxa");
+//$end_name = ".test.test.final_1.taxa";
 //**metagenomes
 
 //abundancia relativa y rearreglo de las filas y las columnas para probar dibujo
@@ -34,9 +34,14 @@ $ec_size_arr = add_average_sizes_per_ec();
 //print_r($mg_site_ec_tax_relab);
 
 //***** Normalización con gen size
-$mg_site_ec_tax_relab = make_site_ec_rel_ab_with_ec_size($mg_files, $ecs, $mg_count_arr, $ec_size_arr, $end_name, $limit = 0.000000006);
-var_dump(get_min($mg_site_ec_tax_relab));
-var_dump(get_max($mg_site_ec_tax_relab));
+$mg_site_ec_tax_relab_a = make_site_ec_rel_ab_with_ec_size($mg_files, $ecs, $mg_count_arr, $ec_size_arr, $end_name, $limit = 0.00000000);
+$z = add_total_tax_ab_per_site_and_ec($mg_site_ec_tax_relab_a);
+//print_r($z);
+$y = get_most_abundant_tax_names_per_ec ($z, $ranking = 8);
+$mg_site_ec_tax_relab = make_most_abundant_site_ec_tax_rel_ab($mg_site_ec_tax_relab_a, $y);
+//print_r($y);
+//var_dump(get_min($mg_site_ec_tax_relab));
+//var_dump(get_max($mg_site_ec_tax_relab));
 
 $mg_ec_site_tax_data = flip_big_group_row_col_names($mg_site_ec_tax_relab);
 //oxigeno
@@ -48,7 +53,7 @@ $mg_oxy_def_by_sites = define_oxygen_layer($mg_oxy_sites, $mg_site_ec_tax_relab)
 $test_b = get_site_names_by_oxy_def($mg_oxy_def_by_sites, "anoxic");
 //print_r($test_b);
 $test_c = order_sites_def_by_oceans($test_b);
-print_r($test_c);
+//print_r($test_c);
 $test_z = order_sites_by_def_and_depth($mg_oxy_def_by_sites);
 
 
