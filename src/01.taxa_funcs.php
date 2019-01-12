@@ -9,6 +9,7 @@ function make_ec_tax_count_arr($file, $ecs) {
       $ec_number = $columns[0];
       $taxa_name = $columns[1];
       $taxa_count= $columns[2];
+      if ($taxa_count == 1) continue;
       if ($ec == $ec_number)
         $taxa_counts[$ec][$taxa_name] = $taxa_count;
     }
@@ -80,7 +81,7 @@ function get_most_abundant_tax_names_per_ec ($total_tax_ab_per_ec, $ranking = 4)
   $most_abundant_tax_names_per_ec = [];
   
   foreach($total_tax_ab_per_ec as $ec => $tax_total){
-    $i = 0;
+    $i = 1;
     foreach($tax_total as $tax => $total){
       if ($i > $ranking) continue;
       else $most_abundant_tax_names_per_ec[$ec][$tax] = $total;
@@ -102,6 +103,89 @@ function make_most_abundant_site_ec_tax_rel_ab($site_ec_tax_relab_arr, $most_abu
   return $most_abundant_site_ec_tax_rel_ab;
 }
 
+///**** calculo del porcentaje de reads por cada ec como el 100%, ignorando singletons, para calcular saber el porcentaje de los más abundantes respecto al total count por ec.
+
+function add_total_count_per_ec ($files, $end_name, $ecs){
+  $site_ec_tax_count_arr = [];
+  $total_count_ec = [];
+  foreach($files as $file){
+    $name = basename($file, $end_name);
+    $site_ec_tax_count_arr[$name] = make_ec_tax_count_arr($file, $ecs);
+  }
+  foreach ($site_ec_tax_count_arr as $site => $ec_tax_count_arr){
+    foreach($ec_tax_count_arr as $ec => $tax_count_arr){
+      foreach($tax_count_arr as $tax => $counts){
+        if ($counts == 1) continue;
+        if (!isset($total_count_ec[$ec]))
+          $total_count_ec[$ec] = $counts;
+        else $total_count_ec[$ec] += $counts;
+      }
+    }
+  }
+  return $total_count_ec;
+}
+
+function add_total_coun_per_ec_tax($files, $end_name, $ecs){
+  $site_ec_tax_count_arr = [];
+  $total_count_ec_tax = [];
+  foreach($files as $file){
+    $name = basename($file, $end_name);
+    $site_ec_tax_count_arr[$name] = make_ec_tax_count_arr($file, $ecs);
+  }
+  foreach ($site_ec_tax_count_arr as $site => $ec_tax_count_arr){
+    foreach($ec_tax_count_arr as $ec => $tax_count_arr){
+      foreach($tax_count_arr as $tax => $counts){
+        if ($counts == 1) continue;
+        if (!isset($total_count_ec_tax[$ec][$tax]))
+          $total_count_ec_tax[$ec][$tax] = $counts;
+        else $total_count_ec_tax[$ec][$tax] += $counts;
+      }
+    }
+  }
+  foreach($total_count_ec_tax as $ec => $tax_count_arr){
+    arsort($tax_count_arr);
+    $total_count_ec_tax_2[$ec] = $tax_count_arr;
+
+  }
+  return $total_count_ec_tax_2;
+}
+
+function percentaje_of_most_abundant_tax_per_ec($total_ec_counts, $total_ec_tax_counts, $ranking = 4){
+  $percentaje_arr = [];
+  foreach($total_ec_tax_counts as $ec => $tax_count_arr){
+    $i = 1;
+    $total = $total_ec_counts[$ec];
+    foreach($tax_count_arr as $tax => $counts){
+      if($i > $ranking) continue;
+      $percentaje_arr[$ec][$tax] = $counts*100/$total;
+      $i += 1; 
+    }
+  }
+  return $percentaje_arr;
+}
+
+function total_percentaje_per_ec($percentaje_arr){
+  $total_percentaje_per_ec = [];
+  foreach($percentaje_arr as $ec => $tax_percentaje_arr){
+    foreach($tax_percentaje_arr as $tax => $percentaje){
+      if(!isset($total_percentaje_per_ec[$ec])) $total_percentaje_per_ec[$ec] = $percentaje;
+      else $total_percentaje_per_ec[$ec] += $percentaje;
+    }
+  }
+  return $total_percentaje_per_ec;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 //***** sin agregar el tamaño del gen
 function get_rel_abundance_custom_from_tax_count($taxa_count, $total, $limit = 0.0000000001){
@@ -118,6 +202,7 @@ function get_rel_abundance_custom_from_tax_count($taxa_count, $total, $limit = 0
 function get_relab_from_ec_tax_count_arr($ec_taxa_counts, $total, $limit = 0.0000000001) {
   $rel_abs_custom = [];
   foreach ( $ec_taxa_counts as $ecs => $counts ) {
+    if ($counts == 1) continue;
     $rel_abs_custom[$ecs] = get_rel_abundance_custom_from_tax_count($counts, $total, $limit);
   }
   return $rel_abs_custom;
@@ -184,10 +269,15 @@ function get_rel_abs_from_ec_tax_name_tax_count_array($ec_taxa_counts) {
 }
 function flip_big_group_row_col_names($array){
   $r = [];
+  $temp_tax_name = "";
   foreach($array as $site => $ec_tax_name_arr){
     foreach ($ec_tax_name_arr as $ec => $tax_value_arr){
+      $temp_tax_name = $tax_name;
       foreach ($tax_value_arr as $tax_name => $value){
+        
+        //if($ec == "2.3.1.169" && $tax_name == "GSO") continue;
         $r[$ec][$site][$tax_name] = $value;
+
       }
     }
   }

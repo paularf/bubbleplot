@@ -198,7 +198,7 @@ function draw($x, $y) {
   if ( empty($this->column_names) ) {
     $this->column_names = $this->get_column_names();
   }
-  $this->draw_row_names($x - 95, $y - 8, $this->row_names);
+  $this->draw_row_names($x - 120, $y - 8, $this->row_names);
   
   //$this->draw_bubble_per_metaoma($x + 300, $y + 800, "2.3.1.169");
   //$this->draw_bubble_column_by_big_group_col_name($x + 300, $y , "2.3.1.169", "Candidatus Scalindua brodae");
