@@ -5,91 +5,115 @@ namespace paularf\bubbleplot;
 class Data {
 	public $data = [];
 
-	function add_group_from_file($group_name, $filename) {
-		  $f = fopen($filename, "r");
-			  $taxa_counts = [];
-			  while ($line = trim(fgets($f))){
-			    $columns = explode("\t", $line);
-			    $ec_number = $columns[0];
-			    $taxa_name = $columns[1];
-			    $taxa_count= $columns[2];
-			    $taxa_counts[$ec_number][$taxa_name] = $taxa_count;
-			  }
-		fclose($f);
-		return $this->data[$group_name] = $taxa_counts;
-	}
-
 	function get_column_names() {
   		$result = [];
-  		foreach ( $this->data as $rows ) {
-    		foreach ( $rows as $columns ) {
-      			foreach ( $columns as $col_name => $value ) {
-        			if ( in_array($col_name, $result) ) throw new \Exception("Col name repetido");
-        			;
-        			$result[] = $col_name;
-      			}
-    		}
-  		}
-  		return $result;
+  		foreach ( $this->data as $columns) {
+            foreach ( $columns as $col_name => $value ) {
+                $result[$col_name] = 1;
+            }
+        }
+  		return array_keys($result);
 	}
 
 	function get_row_names() {
-  		$result = [];
-  		foreach ( $this->data as $rows ) {
-    		foreach ( $rows as $row_name => $row ) {
-        		if ( in_array($row_name, $result) ) throw new \Exception("Row name repetido");
-        		$result[] = $row_name;
-    		}
-  		}
-  		return $result;
+  		return array_keys($this->data);
 	}
-	function get_value($big_group, $row_name, $col_name){
-  		if (isset($this->data[$big_group][$row_name][$col_name])) {
-    		$value = $this->data[$big_group][$row_name][$col_name];
+
+	function get_value($row_name, $col_name){
+  		if (isset($this->data[$row_name][$col_name])) {
+    		$value = $this->data[$row_name][$col_name];
     		return $value;
     	}
     	else return 0;
 	}
 
-	function get_total_by_column($big_group, $col_name){
+	function get_total_by_row($row_name) {
+        $total = 0;
+
+	    if ( isset($this->data[$row_name]) ) {
+	        $column = $this->data[$row_name];
+	        foreach ( $column as $value ) {
+	            $total += $value;
+            }
+        }
+        return $total;
+    }
+
+	function get_total_by_column($col_name){
   		$total = 0;
-  		foreach ($this->data[$big_group] as $row_name => $rows){
-    		$total += $this->get_value($big_group, $row_name, $col_name); 
+  		foreach ($this->data as $row_name => $rows){
+    		$total += $this->get_value($row_name, $col_name);
   		}
   		return $total;
 	}
 
 
+    /**
+     * wachulin
+     * @param $filtered_rows
+     * @return Data
+     */
 	function filter_by_rows($filtered_rows) {
 		$new_data = [];
-		foreach ( $this->data as $group => $rows ) {
-			$new_data[$group] = [];
-			foreach ( $filtered_rows as $row ) {
-				if ( isset($rows[$row]))
-					$new_data[$group][$row] = $rows[$row];
-			}
-		}
+
+        foreach ( $filtered_rows as $row ) {
+            if ( isset($this->data[$row]))
+                $new_data[$row] = $this->data[$row];
+        }
 
 		$new_data_object = new Data;
 		$new_data_object->data = $new_data;
 		return $new_data_object;
 	}
 
-	function filter_by_columns($filtered_cols){
+    /**
+     * @param $filtered_cols
+     * @return Data
+     */
+	function filter_by_columns($filtered_cols) {
 		$new_data = [];
-		foreach($this->data as $group => $rows){
-			foreach($rows as $row => $cols){
-				$new_data[$group][$row] = [];
-				foreach($filtered_cols as $filtered_col){
-					if(isset($cols[$filtered_col]))
-						$new_data[$group][$row][$filtered_col] = $cols[$filtered_col];
-				}
-			}
-		}
+
+        foreach($this->data as $row => $cols) {
+            $new_data[$row] = [];
+            foreach( $filtered_cols as $filtered_col ) {
+                if(isset($cols[$filtered_col]))
+                    $new_data[$row][$filtered_col] = $cols[$filtered_col];
+            }
+        }
+
 		$new_data_object = new Data;
 		$new_data_object->data = $new_data;
 		return $new_data_object;
 	}
+
+    /**
+     * @return Data
+     */
+	function clean_empty_rows() {
+	    $filter_rows = [];
+	    foreach ( $this->get_row_names() as $row_name ) {
+	        $total = $this->get_total_by_row($row_name);
+	        if ( $total > 0 ) {
+	            $filter_rows[] = $row_name;
+            }
+        }
+        return $this->filter_by_rows($filter_rows);
+    }
+
+    /**
+     * @return Data
+     * @throws \Exception
+     */
+    function clean_empty_columns() {
+        $filter_columns = [];
+        foreach ( $this->get_column_names() as $column_name ) {
+            $total = $this->get_total_by_column($column_name);
+            if ( $total > 0 ) {
+                $filter_columns[] = $column_name;
+            }
+        }
+        return $this->filter_by_columns($filter_columns);
+    }
 
 
 }

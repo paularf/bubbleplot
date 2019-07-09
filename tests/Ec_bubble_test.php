@@ -1,7 +1,7 @@
 <?php
 include("../src/Ec_chart_tax_funcs.php");
 include("total_counts_test.php");
-include("../src/Ec_chart.php");
+include("../src/Chart.php");
 
 $ecs = ["4.1.1.39", "2.3.1.169", "2.3.3.8"];
 $files = glob("*txt");
