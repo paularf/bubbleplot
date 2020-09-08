@@ -55,25 +55,16 @@ function formatScientific($someFloat){
 function draw_scale_leyend($x, $y, $scale){
   $current_x = $x;
   foreach ($scale as $value){
-    draw_bubble($current_x, $y +30, 150000*$value, '#4e4f51');
+    draw_bubble($current_x, $y +30, 30*$value, '#4e4f51');
     $current_x += 50;
   }
-  draw_line($x, $y+30, $current_x, $y+30, 'black', 0.2);
+  draw_line($x, $y+30, $current_x - 30, $y+30, 'black', 0.2);
 
-  draw_bubble($current_x + 20, $y - 20, 6, 'green'); 
-  draw_text($current_x + 30, $y - 15, 'Oxic', 0, 12);
+  draw_bubble($current_x , $y + 20, 6, 'green'); 
+  draw_text($current_x +10, $y + 25, 'Continental slope', 0, 12);
 
-  draw_bubble($current_x + 20, $y, 6, 'blue'); 
-  draw_text($current_x + 30, $y + 5, 'Up oxycline', 0, 12);
-
-  draw_bubble($current_x + 20, $y + 20, 6, 'purple'); 
-  draw_text($current_x + 30, $y + 25, 'Low oxygen concentration', 0, 12);
-
-  draw_bubble($current_x + 20, $y + 40, 6, 'red'); 
-  draw_text($current_x + 30, $y + 45, 'Anoxic', 0, 12);
-
-  draw_bubble($current_x + 20, $y + 60, 6, '#3602f4'); 
-  draw_text($current_x + 30, $y + 65, 'Low oxycline', 0, 12);
+  draw_bubble($current_x , $y + 40, 6, 'blue'); 
+  draw_text($current_x + 10, $y + 45, 'Inner trench', 0, 12);
 }
 function draw_scient_values ($x, $y, $values, $metaome = "metagenome"){
   draw_text($x, $y + 28, 'Relative abundance per ' . $metaome, 0, 8, 'bold');
@@ -88,37 +79,3 @@ function draw_leyend ($x, $y, $leyend_scale, $scientific_notation, $metaome = "m
   draw_scient_values ($x - 15, $y + 30, $scientific_notation, $metaome);
 }
 
-
-function draw_ec_colors_scale_leyend($x, $y, $scale){
-  $current_x = $x;
-  foreach ($scale as $value){
-    draw_bubble($current_x, $y +30, 150000000*$value, '#4e4f51');
-    $current_x += 50;
-  }
-  draw_line($x, $y+30, $current_x - 25, $y+30, 'black', 0.2);
-
-  draw_bubble($current_x + 20, $y - 20, 6, '#00a400'); 
-  draw_text($current_x + 30, $y - 16, 'CBB cycle', 0, 12);
-
-  draw_bubble($current_x + 20, $y, 6, '#ff4000'); 
-  draw_text($current_x + 30, $y + 4, 'r_CoA pathway', 0, 12);
-
-  draw_bubble($current_x + 20, $y + 20, 6, 'blue'); 
-  draw_text($current_x + 30, $y + 24, '3HP_4HB cycle', 0, 12);
-
-  draw_bubble($current_x + 20, $y + 40, 6, 'purple'); 
-  draw_text($current_x + 30, $y + 44, '3HP_4HB cycle and 3HP bicycle', 0, 12);
-
-  draw_bubble($current_x + 20, $y + 60, 6, '#ff00bf'); 
-  draw_text($current_x + 30, $y + 64, '3HP bicycle', 0, 12);
-
-  draw_bubble($current_x + 20, $y + 80, 6, '#ff0000'); 
-  draw_text($current_x + 30, $y + 84, 'rTCA cycle', 0, 12);
-}
-
-
-
-function draw_ec_colors_leyend ($x, $y, $leyend_scale, $scientific_notation, $metaome = "metagenome"){
-  draw_ec_colors_scale_leyend($x, $y, $leyend_scale);
-  draw_scient_values ($x - 15, $y + 30, $scientific_notation, $metaome);
-}

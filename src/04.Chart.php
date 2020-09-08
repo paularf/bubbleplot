@@ -6,7 +6,7 @@ public $delta_x;
 public $delta_y;
 public $data;
 public $row_names;
-public $column_names; // row y columns están por defecto autodefinidos en el objeto (abajo)
+public $column_names; // estos son los ecs
 public $big_group;
 public $bubble_scale;
 public $get_color;
@@ -38,7 +38,7 @@ function get_column_names() {
         $total = $this->get_total_by_column($big_group, $col_name);
         $arr[$big_group][$col_name] = $total;  
       } 
-      }
+    }
       arsort($arr[$big_group]);
       foreach($arr as $big_group_2){
         foreach($big_group_2 as $col_name_2 => $total){
@@ -96,7 +96,7 @@ function draw_row_names($x, $y){
   foreach ($this->row_names as $row_name){
     $y += $this->delta_y;
     $row_name = $this->clean_site_name($row_name);
-    $this->draw_text($x, $y, $row_name, 0, 10);
+    $this->draw_text($x + 50, $y - 1.5, $row_name, 0, 10);
 
   }
 }
